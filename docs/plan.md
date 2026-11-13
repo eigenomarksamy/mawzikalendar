@@ -7,9 +7,9 @@ summary to copy. It runs in the browser with no account, no OAuth and no
 backend, and it never fetches ra.co. It is planned for
 mawzikalendar.eigenomar.com.
 
-Nothing is built yet. This plan holds the first release (X5–X7) and its
-release gate, the ideas parked for later, and this repository's ecosystem
-onboarding (EO1–EO7).
+Nothing is built yet. This plan holds the first release (X5–X7), its release
+gate and its deploy (D1), the ideas parked for later, and this repository's
+ecosystem onboarding (EO1–EO7).
 
 ## How this plan works
 
@@ -22,6 +22,7 @@ onboarding (EO1–EO7).
   | Prefix | Lane |
   | --- | --- |
   | X | The first release. It starts at X5 because its tickets keep the ids they were first planned under. |
+  | D | Deploying the app |
   | EO | Ecosystem onboarding |
 
 - **Each ticket** says what to do, what it needs, and when it is done. Its
@@ -45,11 +46,12 @@ onboarding (EO1–EO7).
 | [X5](#x5) | Event model and normalization | M | none | todo |
 | [X6](#x6) | Form, review, Google link and `.ics` | M | X5 | todo |
 | [X7](#x7) | Extract from pasted RA text | M | X6 | todo |
+| [D1](#d1) | Deploy to mawzikalendar.eigenomar.com | S | X6, the release gate | todo |
 | [EO1](#eo1) | `project.yaml` | S | none | done |
 | [EO2](#eo2) | `CLAUDE.md` with the shared rules | S | none | done |
 | [EO3](#eo3) | The plan in this repository | S | none | done |
 | [EO4](#eo4) | Confidential work stays out | S | none | done |
-| [EO5](#eo5) | `.gitattributes` with LF line endings | S | none | todo |
+| [EO5](#eo5) | `.gitattributes` with LF line endings | S | none | done |
 | [EO6](#eo6) | Linux and the lowercase drive letter | S | X5 | todo |
 | [EO7](#eo7) | An issue for every open ticket | S | the owner's approval | todo |
 
@@ -110,10 +112,21 @@ The app ships only when:
   ([X6](#x6))
 - no permissions are requested
 
-Deploying to mawzikalendar.eigenomar.com waits on X6 and on this gate. Once
-the app is deployed, eigenomar.com adds a software entry for it, which is the
-site's own work. No ticket here covers the deploy yet
-([open question 3](#open-questions)).
+[D1](#d1) deploys the app once X6 and this gate are met. Once it is deployed,
+eigenomar.com adds a software entry for it, which is the site's own work.
+
+<a id="d1"></a>
+
+### D1 · Deploy to mawzikalendar.eigenomar.com · S
+
+- **Do:** deploy the app to mawzikalendar.eigenomar.com, on hosting that fits
+  the stack X5 chooses. In the same change, record how it deploys in
+  `project.yaml` (`links.deployment` and `delivery`) and in `CLAUDE.md`'s
+  delivery section.
+- **Needs:** X6, and the release gate above.
+- **Done when:** the app answers at mawzikalendar.eigenomar.com with the
+  release gate met, `project.yaml` and `CLAUDE.md` say what deploys it, and
+  the ecosystem's validator passes.
 
 ## Parked
 
@@ -154,6 +167,7 @@ Each step is small and independent, and can be done between feature work.
 - **Result:** done 2026-11-14. It points at this plan, with no CI, no releases
   and no deployment yet, and `links.deployment` stays `null` until the app is
   live. Update it in the same change that adds a document or a deployment.
+  `9bb6f9a`.
 
 <a id="eo2"></a>
 
@@ -164,6 +178,7 @@ Each step is small and independent, and can be done between feature work.
   there is code, it also says how to build and test without the import.
 - **Result:** done 2026-11-14, from the ecosystem's template. Sessions here
   haven't committed, so it grants no standing approval for commits.
+  `9bb6f9a`.
 
 <a id="eo3"></a>
 
@@ -173,7 +188,7 @@ Each step is small and independent, and can be done between feature work.
   file, and each ticket has its needs and a done-when.
 - **Result:** done 2026-11-14. The done-whens are new. They were written from
   each ticket's own text with no work added, and wait for the owner's review
-  ([open question 1](#open-questions)).
+  ([open question 1](#open-questions)). `9bb6f9a`.
 
 <a id="eo4"></a>
 
@@ -182,11 +197,11 @@ Each step is small and independent, and can be done between feature work.
 - **Done when:** [How this plan works](#how-this-plan-works) says that
   confidential work never goes in this file.
 - **Result:** done 2026-11-14. Nothing in this plan is marked confidential
-  (the owner, 2026-11-14).
+  (the owner, 2026-11-14). `9bb6f9a`.
 
 <a id="eo5"></a>
 
-#### EO5 · `.gitattributes` with LF line endings · todo
+#### EO5 · `.gitattributes` with LF line endings · done
 
 - **Do:** add `.gitattributes` with `* text=auto eol=lf`, then run
   `git add --renormalize .`. The one tracked file, `README.md`, is already LF
@@ -195,6 +210,9 @@ Each step is small and independent, and can be done between feature work.
 - **Needs:** nothing.
 - **Done when:** `.gitattributes` is committed, and `git ls-files --eol` shows
   every text file as `i/lf`.
+- **Result:** done 2026-11-14. `.gitattributes` holds `* text=auto eol=lf`,
+  and `git ls-files --eol` shows all four tracked files as `i/lf`, so
+  `git add --renormalize .` has nothing to stage.
 
 <a id="eo6"></a>
 
@@ -214,13 +232,12 @@ Each step is small and independent, and can be done between feature work.
 
 #### EO7 · An issue for every open ticket · todo
 
-- **Do:** open one issue in this repository for every open ticket (X5–X7 and
-  any EO step still open, except this one) and add each to the ecosystem's
-  GitHub Project. The title is `<id>: <title>`, as in
-  `X5: Event model and normalization`. The body's first line links the
-  ticket's anchor on `main` and copies nothing. Each need becomes a
-  blocked-by link: X6 is blocked by X5, X7 by X6, and EO6 by X5. The proposed
-  priorities are P1 for X5 and P2 for the rest
+- **Do:** open one issue in this repository for every open ticket (X5–X7, D1
+  and EO6 on 2026-11-14) and add each to the ecosystem's GitHub Project. The
+  title is `<id>: <title>`, as in `X5: Event model and normalization`. The
+  body's first line links the ticket's anchor on `main` and copies nothing.
+  Each need becomes a blocked-by link: X6 is blocked by X5, X7 by X6, D1 by X6,
+  and EO6 by X5. The proposed priorities are P1 for X5 and P2 for the rest
   ([open question 2](#open-questions)).
 - **Needs:** the owner's approval. This repository is public, so the owner
   sees each issue's text before it is written.
@@ -230,16 +247,21 @@ Each step is small and independent, and can be done between feature work.
 ### Open questions
 
 1. **The done-whens** of X5–X7 are new (EO3). Review them before EO7 opens
-   their issues.
-2. **Priorities for EO7:** P1 for X5, the next ticket, and P2 for X6, X7 and
-   the open EO steps?
-3. **The deploy:** no ticket here covers deploying to
-   mawzikalendar.eigenomar.com yet. Add one once X5 has chosen the stack?
-4. **GitHub's description** reads "calendar automation project." Set it to
-   `project.yaml`'s description?
+   their issues. Open: reviewed with EO7's issue texts.
+2. **Priorities for EO7:** P1 for X5, the next ticket, and P2 for X6, X7, D1
+   and EO6? Open: confirmed with EO7's issue texts.
+3. **The deploy:** answered on 2026-11-14. It is [D1](#d1), in its own lane,
+   written now. It needs X6 and the release gate, and the hosting follows X5's
+   stack.
+4. **GitHub's description:** answered on 2026-11-14. It is `project.yaml`'s.
 
 ## Log
 
+- 2026-11-14 · plan · The owner's answers: the deploy is D1, a new lane, needing
+  X6 and the release gate, and GitHub's description is the manifest's. EO5 is
+  done: `.gitattributes` with LF line endings, which staged nothing. EO1–EO4's
+  results name their commit, `9bb6f9a`. EO7 now counts five open tickets: X5–X7,
+  D1 and EO6.
 - 2026-11-14 · plan · Created by the ecosystem onboarding run. It holds X5–X7
   for the first release, with their release gate and new done-whens, stage 2
   under Parked, and EO1–EO7. EO1–EO4 are done: `project.yaml`, which
