@@ -1,0 +1,31 @@
+schema_version: 1
+
+# mawzikalendar's manifest for the eigenomar ecosystem: what this repository is
+# and where its documents are. It points at documents and holds none of their
+# content. Update it in the same change that adds a document or a deployment.
+
+id: mawzikalendar
+name: mawzikalendar
+description: a browser app that turns a music event, typed into a form or pasted from an ra.co event page, into a calendar entry, as a prefilled Google Calendar link, an .ics file or a summary to copy
+status: active
+tags: [icalendar, google-calendar]
+
+links:
+  deployment: null                 # not deployed yet; planned for mawzikalendar.eigenomar.com (docs/plan.md, release gate)
+
+documents:
+  plan: docs/plan.md
+  architecture: null               # no code yet
+  engineering: null
+  decisions: null
+
+delivery:
+  ci: none
+  releases: none
+  deployment: none                 # not deployed yet
+
+artifacts:
+  diagrams: null
+  test_reports: null
+  coverage: null
+  monitoring: null
