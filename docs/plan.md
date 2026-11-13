@@ -53,7 +53,7 @@ ecosystem onboarding (EO1–EO7).
 | [EO4](#eo4) | Confidential work stays out | S | none | done |
 | [EO5](#eo5) | `.gitattributes` with LF line endings | S | none | done |
 | [EO6](#eo6) | Linux and the lowercase drive letter | S | X5 | todo |
-| [EO7](#eo7) | An issue for every open ticket | S | the owner's approval | todo |
+| [EO7](#eo7) | An issue for every open ticket | S | the owner's approval | done |
 
 ## First release
 
@@ -187,8 +187,8 @@ Each step is small and independent, and can be done between feature work.
 - **Done when:** X5–X7, their release gate and the parked stage 2 are in this
   file, and each ticket has its needs and a done-when.
 - **Result:** done 2026-11-14. The done-whens are new. They were written from
-  each ticket's own text with no work added, and wait for the owner's review
-  ([open question 1](#open-questions)). `9bb6f9a`.
+  each ticket's own text with no work added, and the owner approved them on
+  2026-11-14 ([open question 1](#open-questions)). `9bb6f9a`.
 
 <a id="eo4"></a>
 
@@ -230,7 +230,7 @@ Each step is small and independent, and can be done between feature work.
 
 <a id="eo7"></a>
 
-#### EO7 · An issue for every open ticket · todo
+#### EO7 · An issue for every open ticket · done
 
 - **Do:** open one issue in this repository for every open ticket (X5–X7, D1
   and EO6 on 2026-11-14) and add each to the ecosystem's GitHub Project. The
@@ -243,13 +243,18 @@ Each step is small and independent, and can be done between feature work.
   sees each issue's text before it is written.
 - **Done when:** every open ticket has exactly one issue in the Project, with
   its status, priority and work type set, and its needs are blocked-by links.
+- **Result:** done 2026-11-14, with the owner's approval of each text. X5 is
+  #1, X6 #2, X7 #3, D1 #4 and EO6 #5, each in the Project with its status,
+  priority and work type: X5 is `ready` at P1, and the rest are `backlog` at
+  P2. X6 and EO6 are blocked by X5, and X7 and D1 by X6.
 
 ### Open questions
 
 1. **The done-whens** of X5–X7 are new (EO3). Review them before EO7 opens
-   their issues. Open: reviewed with EO7's issue texts.
+   their issues. Answered on 2026-11-14: the owner approved them, and D1's,
+   with EO7's issue texts.
 2. **Priorities for EO7:** P1 for X5, the next ticket, and P2 for X6, X7, D1
-   and EO6? Open: confirmed with EO7's issue texts.
+   and EO6? Answered on 2026-11-14: yes, with EO7's issue texts.
 3. **The deploy:** answered on 2026-11-14. It is [D1](#d1), in its own lane,
    written now. It needs X6 and the release gate, and the hosting follows X5's
    stack.
@@ -257,6 +262,11 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-14 · EO7 · An issue for every open ticket: X5–X7, D1 and EO6 are
+  #1–#5, in the ecosystem's Project, with X6 and EO6 blocked by X5, and X7 and
+  D1 by X6. The owner approved each text, with the done-whens and priorities.
+  Only EO6, which waits on X5, is left of the onboarding. `7ed3f43` holds the
+  previous change.
 - 2026-11-14 · plan · The owner's answers: the deploy is D1, a new lane, needing
   X6 and the release gate, and GitHub's description is the manifest's. EO5 is
   done: `.gitattributes` with LF line endings, which staged nothing. EO1–EO4's
