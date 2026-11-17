@@ -15,7 +15,7 @@ links:
 
 documents:
   plan: docs/plan.md
-  architecture: null               # no code yet
+  architecture: null               # none yet: the code is the event model, src/event.ts and src/zoned-time.ts
   engineering: null
   decisions: null
 

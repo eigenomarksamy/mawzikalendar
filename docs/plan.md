@@ -7,9 +7,9 @@ summary to copy. It runs in the browser with no account, no OAuth and no
 backend, and it never fetches ra.co. It is planned for
 mawzikalendar.eigenomar.com.
 
-Nothing is built yet. This plan holds the first release (X5–X7), its release
-gate and its deploy (D1), the ideas parked for later, and this repository's
-ecosystem onboarding (EO1–EO7).
+The event model is built (X5), and the app isn't yet. This plan holds the
+first release (X5–X7), its release gate and its deploy (D1), the ideas parked
+for later, and this repository's ecosystem onboarding (EO1–EO7).
 
 ## How this plan works
 
@@ -43,7 +43,7 @@ ecosystem onboarding (EO1–EO7).
 
 | Ticket | Title | Size | Needs | Status |
 | --- | --- | --- | --- | --- |
-| [X5](#x5) | Event model and normalization | M | none | todo |
+| [X5](#x5) | Event model and normalization | M | none | done |
 | [X6](#x6) | Form, review, Google link and `.ics` | M | X5 | todo |
 | [X7](#x7) | Extract from pasted RA text | M | X6 | todo |
 | [D1](#d1) | Deploy to mawzikalendar.eigenomar.com | S | X6, the release gate | todo |
@@ -71,6 +71,23 @@ X5–X7 build the app. The release gate below says when it can ship.
 - **Done when:** unit tests pass for an overnight event, an event across a DST
   change, an event in a timezone other than the user's, and an event with no
   end time, which gets the default end and a flag.
+- **Result:** done 2026-11-18. The stack is TypeScript, tested with Vitest,
+  with no runtime dependencies: timezones go through `Intl`. X6 adds Vite's
+  build. `src/event.ts` holds the model and `normalizeEvent`, which takes the
+  form's strings (a start as `YYYY-MM-DDTHH:mm`, an end as that or as `HH:mm`,
+  and an IANA timezone) and returns the event, with its start and end as
+  instants and as the event's wall times, or every error it found.
+  `src/zoned-time.ts` converts between wall times and instants.
+  - **Overnight:** an end time that isn't after the start is the next day,
+    and the event says it is `overnight`.
+  - **DST:** a time the clocks skip moves forward by the change, and a time
+    they repeat takes the earlier instant, as Temporal's `compatible` does.
+    Either is flagged for the review screen.
+  - **Timezones:** times are read in the event's own zone and never the
+    machine's. The tests run in UTC+14 to prove it.
+  - **No end:** the end is the start plus four hours of elapsed time,
+    `DEFAULT_DURATION_MINUTES`, and is flagged `end-defaulted`.
+  - **Tests:** 37 unit tests pass, from `C:\` and from `c:\`.
 
 <a id="x6"></a>
 
@@ -262,6 +279,11 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-18 · X5 · Event model and normalization: TypeScript and Vitest, with
+  timezones through `Intl` and no runtime dependencies. Overnight events, DST
+  changes, event-local timezones and a missing end are handled and tested,
+  so the release gate's timezone tests pass. `CLAUDE.md` lists the commands.
+  X6 and EO6 can start.
 - 2026-11-14 · EO7 · An issue for every open ticket: X5–X7, D1 and EO6 are
   #1–#5, in the ecosystem's Project, with X6 and EO6 blocked by X5, and X7 and
   D1 by X6. The owner approved each text, with the done-whens and priorities.

@@ -5,15 +5,25 @@
 mawzikalendar is a browser app that turns a music event into a calendar entry.
 The event is typed into a form or pasted from an ra.co event page, checked on a
 review screen, and comes out as a prefilled Google Calendar link, an `.ics`
-file or a summary to copy. Nothing is built yet. It is planned for
-mawzikalendar.eigenomar.com and isn't deployed.
+file or a summary to copy. So far only the event model and its
+normalization exist (X5). It is planned for mawzikalendar.eigenomar.com and
+isn't deployed.
 
 ## commands
 
-There is no code yet, so there is nothing to build or test. X5, the first
-ticket, chooses the stack. When it lands, list its setup, build, test and run
-commands here, each working on Windows and Linux, along with what to run
-before pushing.
+TypeScript, tested with Vitest, on Node 22.12 or later. Each command runs from
+the repository's root, on Windows and Linux.
+
+- `npm ci` installs the pinned dev dependencies. The app itself has no runtime
+  dependencies: timezones go through `Intl`.
+- `npm test` runs the tests. They run in `Pacific/Kiritimati` (UTC+14, set in
+  `vitest.config.ts`), so code that reads the machine's own zone fails them.
+- `npm run check` typechecks with `tsc` and runs the tests. Run it before
+  pushing.
+
+There is no build or app to run yet: X6 adds the UI and Vite's build.
+`vitest.config.ts` points `vitest` at the working directory's copy on Windows,
+so the tests also pass when started from a lowercase `c:\`.
 
 ## plan
 
