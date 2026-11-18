@@ -9,7 +9,8 @@ mawzikalendar.eigenomar.com.
 
 The event model is built (X5), and the app isn't yet. This plan holds the
 first release (X5–X7), its release gate and its deploy (D1), the ideas parked
-for later, and this repository's ecosystem onboarding (EO1–EO7).
+for later, this repository's ecosystem onboarding (EO1–EO7), and its
+adoption of the ecosystem's standards (DOC1, SCM1).
 
 ## How this plan works
 
@@ -24,6 +25,8 @@ for later, and this repository's ecosystem onboarding (EO1–EO7).
   | X | The first release. It starts at X5 because its tickets keep the ids they were first planned under. |
   | D | Deploying the app |
   | EO | Ecosystem onboarding |
+  | DOC | The product's documents: vision, architecture, design, testing strategy, and verification and validation |
+  | SCM | Source control and delivery: CI, branching, protection, releases and versioning |
 
 - **Each ticket** says what to do, what it needs, and when it is done. Its
   "done when" is its acceptance criteria. Size is a rough guess: S is small,
@@ -54,6 +57,8 @@ for later, and this repository's ecosystem onboarding (EO1–EO7).
 | [EO5](#eo5) | `.gitattributes` with LF line endings | S | none | done |
 | [EO6](#eo6) | Linux and the lowercase drive letter | S | X5 | todo |
 | [EO7](#eo7) | An issue for every open ticket | S | the owner's approval | done |
+| [DOC1](#doc1) | The product's documents | M | `meta-eigenomar` ST1 | todo |
+| [SCM1](#scm1) | The ecosystem's SCM strategy | S | `meta-eigenomar` ST2 | todo |
 
 ## First release
 
@@ -144,6 +149,48 @@ eigenomar.com adds a software entry for it, which is the site's own work.
 - **Done when:** the app answers at mawzikalendar.eigenomar.com with the
   release gate met, `project.yaml` and `CLAUDE.md` say what deploys it, and
   the ecosystem's validator passes.
+
+## Ecosystem standards
+
+The ecosystem's contract, in `meta-eigenomar`, is adding two standards that
+every repository adopts: the documents each one keeps, and how each one
+manages its source and delivers it. DOC1 and SCM1 adopt them here, each once
+its standard is designed. Until then, their issues stay in the backlog.
+
+<a id="doc1"></a>
+
+### DOC1 · The product's documents · M
+
+- **Do:** write this repository's product vision, architecture, design,
+  testing strategy, and verification and validation (V&V) documents, in the
+  shape the ecosystem's document standard sets. Where a file or section
+  already covers one, name it rather than copy it. Today the vision is this
+  plan's opening and the README. There is no architecture document
+  (`project.yaml` says `architecture: null`), and the event model,
+  `src/event.ts` and `src/zoned-time.ts`, is the only code. `CLAUDE.md`'s
+  design section holds the constraints, the tests are Vitest, run in
+  `Pacific/Kiritimati`, and the [release gate](#release-gate) is the nearest
+  thing to a V&V plan.
+- **Needs:** the ecosystem's document standard (`meta-eigenomar` ST1).
+- **Done when:** each of the five documents exists, or names the file or
+  section that holds it, and follows the standard's outline. `project.yaml`
+  names them under the standard's keys, and the ecosystem's validator passes.
+  Nothing in them is confidential, since this repository is public.
+
+<a id="scm1"></a>
+
+### SCM1 · The ecosystem's SCM strategy · S
+
+- **Do:** adopt the ecosystem's SCM strategy through its adoption checklist:
+  CI, branching, protection of `main`, versioning and releases, the health
+  report and dependency updates. Today there is no CI, release or deployment,
+  and `npm run check` runs only locally. [D1](#d1) sets up the deploy: if the
+  strategy is ready first, D1 follows it, and this ticket checks the rest.
+- **Needs:** the ecosystem's SCM strategy (`meta-eigenomar` ST2).
+- **Done when:** every item on the checklist is applied here, or recorded here
+  as an exception the strategy allows, with its reason. `project.yaml`'s
+  `delivery` and `CLAUDE.md`'s delivery section say what runs, any workflow
+  passes on `main`, and the ecosystem's validator passes.
 
 ## Parked
 
@@ -279,6 +326,10 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-18 · plan · Added DOC1 and SCM1, in two new lanes, at the owner's
+  request: this repository's adoption of the ecosystem's document standard and
+  SCM strategy, which are designed in `meta-eigenomar`. Each needs its
+  standard, so its issue waits in the backlog.
 - 2026-11-18 · X5 · Event model and normalization: TypeScript and Vitest, with
   timezones through `Intl` and no runtime dependencies. Overnight events, DST
   changes, event-local timezones and a missing end are handled and tested,
