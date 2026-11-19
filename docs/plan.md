@@ -32,8 +32,12 @@ standards (DOC1, SCM1).
   | SCM | Source control and delivery: CI, branching, protection, releases and versioning |
 
 - **Each ticket** says what to do, what it needs, and when it is done. Its
-  "done when" is its acceptance criteria. Size is a rough guess: S is small,
-  M is medium.
+  "done when" is its acceptance criteria. Its size is on the ecosystem's
+  scale, the same value as its issue's `Size` in the ecosystem's GitHub
+  Project: xxs takes minutes, xs under an hour, s an hour or two, m about a
+  session, l two or three, xl four to six and xxl more. tbd means an open
+  decision or work not yet planned decides it. A change to one is made to the
+  other in the same session.
 - **Issues.** Every open ticket gets one GitHub issue in this repository. The
   issue's title starts with the ticket's id, and its body links the ticket's
   anchor here without copying it. The ticket holds the scope and history, and
@@ -49,20 +53,20 @@ standards (DOC1, SCM1).
 
 | Ticket | Title | Size | Needs | Status |
 | --- | --- | --- | --- | --- |
-| [X5](#x5) | Event model and normalization | M | none | done |
-| [X6](#x6) | Form, review, Google link and `.ics` | M | X5 | done |
-| [X7](#x7) | Extract from pasted RA text | M | X6 | todo |
-| [D1](#d1) | Deploy to mawzikalendar.eigenomar.com | S | X6, the release gate | todo |
-| [V1](#v1) | Show a public Google calendar | S | none | todo |
-| [EO1](#eo1) | `project.yaml` | S | none | done |
-| [EO2](#eo2) | `CLAUDE.md` with the shared rules | S | none | done |
-| [EO3](#eo3) | The plan in this repository | S | none | done |
-| [EO4](#eo4) | Confidential work stays out | S | none | done |
-| [EO5](#eo5) | `.gitattributes` with LF line endings | S | none | done |
-| [EO6](#eo6) | Linux and the lowercase drive letter | S | X5 | done |
-| [EO7](#eo7) | An issue for every open ticket | S | the owner's approval | done |
-| [DOC1](#doc1) | The product's documents | M | `meta-eigenomar` ST1 | todo |
-| [SCM1](#scm1) | The ecosystem's SCM strategy | S | `meta-eigenomar` ST2 | todo |
+| [X5](#x5) | Event model and normalization | m | none | done |
+| [X6](#x6) | Form, review, Google link and `.ics` | m | X5 | done |
+| [X7](#x7) | Extract from pasted RA text | s | X6 | todo |
+| [D1](#d1) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | todo |
+| [V1](#v1) | Show a public Google calendar | s | none | todo |
+| [EO1](#eo1) | `project.yaml` | s | none | done |
+| [EO2](#eo2) | `CLAUDE.md` with the shared rules | s | none | done |
+| [EO3](#eo3) | The plan in this repository | s | none | done |
+| [EO4](#eo4) | Confidential work stays out | s | none | done |
+| [EO5](#eo5) | `.gitattributes` with LF line endings | s | none | done |
+| [EO6](#eo6) | Linux and the lowercase drive letter | s | X5 | done |
+| [EO7](#eo7) | An issue for every open ticket | s | the owner's approval | done |
+| [DOC1](#doc1) | The product's documents | tbd | `meta-eigenomar` ST1 | todo |
+| [SCM1](#scm1) | The ecosystem's SCM strategy | tbd | `meta-eigenomar` ST2 | todo |
 
 ## First release
 
@@ -70,7 +74,7 @@ X5–X7 build the app. The release gate below says when it can ship.
 
 <a id="x5"></a>
 
-### X5 · Event model and normalization · M
+### X5 · Event model and normalization · m
 
 - **Do:** an event model with a title, a start and an end, a timezone, a
   venue, a lineup, a source URL and notes. Normalization handles overnight
@@ -100,7 +104,7 @@ X5–X7 build the app. The release gate below says when it can ship.
 
 <a id="x6"></a>
 
-### X6 · Form, review, Google link and `.ics` · M
+### X6 · Form, review, Google link and `.ics` · m
 
 - **Do:** the flow is form → review screen → a prefilled Google Calendar link,
   a downloadable `.ics` and a copyable summary. It needs no OAuth and no
@@ -142,7 +146,7 @@ X5–X7 build the app. The release gate below says when it can ship.
 
 <a id="x7"></a>
 
-### X7 · Extract from pasted RA text · M
+### X7 · Extract from pasted RA text · s
 
 - **Do:** extract the event's fields from text the user pastes from an ra.co
   page, keep the source URL, and flag missing or ambiguous fields for review.
@@ -202,7 +206,7 @@ eigenomar.com adds a software entry for it, which is the site's own work.
 
 <a id="d1"></a>
 
-### D1 · Deploy to mawzikalendar.eigenomar.com · S
+### D1 · Deploy to mawzikalendar.eigenomar.com · s
 
 - **Do:** deploy the app to mawzikalendar.eigenomar.com, on hosting that fits
   the stack X5 chooses. In the same change, record how it deploys in
@@ -221,7 +225,7 @@ deploys it once it is done.
 
 <a id="v1"></a>
 
-### V1 · Show a public Google calendar · S
+### V1 · Show a public Google calendar · s
 
 - **Do:** the user pastes a link to a public Google calendar, and the app
   shows that calendar in Google's own embed,
@@ -252,7 +256,7 @@ its standard is designed. Until then, their issues stay in the backlog.
 
 <a id="doc1"></a>
 
-### DOC1 · The product's documents · M
+### DOC1 · The product's documents · tbd
 
 - **Do:** write this repository's product vision, architecture, design,
   testing strategy, and verification and validation (V&V) documents, in the
@@ -272,7 +276,7 @@ its standard is designed. Until then, their issues stay in the backlog.
 
 <a id="scm1"></a>
 
-### SCM1 · The ecosystem's SCM strategy · S
+### SCM1 · The ecosystem's SCM strategy · tbd
 
 - **Do:** adopt the ecosystem's SCM strategy through its adoption checklist:
   CI, branching, protection of `main`, versioning and releases, the health
