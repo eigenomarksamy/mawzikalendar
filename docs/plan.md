@@ -55,7 +55,7 @@ adoption of the ecosystem's standards (DOC1, SCM1).
 | [EO3](#eo3) | The plan in this repository | S | none | done |
 | [EO4](#eo4) | Confidential work stays out | S | none | done |
 | [EO5](#eo5) | `.gitattributes` with LF line endings | S | none | done |
-| [EO6](#eo6) | Linux and the lowercase drive letter | S | X5 | todo |
+| [EO6](#eo6) | Linux and the lowercase drive letter | S | X5 | done |
 | [EO7](#eo7) | An issue for every open ticket | S | the owner's approval | done |
 | [DOC1](#doc1) | The product's documents | M | `meta-eigenomar` ST1 | todo |
 | [SCM1](#scm1) | The ecosystem's SCM strategy | S | `meta-eigenomar` ST2 | todo |
@@ -186,6 +186,8 @@ its standard is designed. Until then, their issues stay in the backlog.
   report and dependency updates. Today there is no CI, release or deployment,
   and `npm run check` runs only locally. [D1](#d1) sets up the deploy: if the
   strategy is ready first, D1 follows it, and this ticket checks the rest.
+  CI runs `npm run check` on `ubuntu-latest`, which closes the Linux gap
+  [EO6](#eo6) accepted.
 - **Needs:** the ecosystem's SCM strategy (`meta-eigenomar` ST2).
 - **Done when:** every item on the checklist is applied here, or recorded here
   as an exception the strategy allows, with its reason. `project.yaml`'s
@@ -280,7 +282,7 @@ Each step is small and independent, and can be done between feature work.
 
 <a id="eo6"></a>
 
-#### EO6 · Linux and the lowercase drive letter · todo
+#### EO6 · Linux and the lowercase drive letter · done
 
 - **Do:** there is nothing to run yet. Once X5 adds code and tests, record here
   what covers Linux: a CI job on `ubuntu-latest`, a Linux deployment build, or
@@ -291,6 +293,21 @@ Each step is small and independent, and can be done between feature work.
 - **Needs:** X5.
 - **Done when:** this section says what runs the tests on Linux, and the
   tests pass when started from `c:\` as well as from `C:\`.
+- **Result:** done 2026-11-19.
+  - **The lowercase drive letter:** `npm run check` passes, with all 37
+    tests, when started from `C:\` and from `c:\`. The `c:\` run was started
+    from a Python subprocess with `cwd='c:\\dev_ws\\mawzikalendar'`, and
+    Node's working directory was `c:\dev_ws\mawzikalendar`. X5's
+    `vitest.config.ts` already holds the conventions' fix: on Windows only, it
+    points `vitest` at the working directory's copy.
+  - **Linux:** an accepted gap until [SCM1](#scm1). Nothing runs the tests on
+    Linux yet, since there is no CI, and no deployment build until D1. SCM1's
+    CI runs on `ubuntu-latest`, which closes the gap. Until then the risk is
+    small: the code uses no paths or OS calls, every import matches its
+    file's case, the tests set their timezone in `vitest.config.ts` and not
+    in the shell, and the alias leaves Vitest as it is on Linux. Node's
+    official Linux builds carry the full ICU data that `Intl`'s timezones
+    need.
 
 <a id="eo7"></a>
 
@@ -325,6 +342,11 @@ Each step is small and independent, and can be done between feature work.
 4. **GitHub's description:** answered on 2026-11-14. It is `project.yaml`'s.
 
 ## Log
+
+- 2026-11-19 · EO6 · Linux and the lowercase drive letter: `npm run check`
+  passes from `C:\` and from `c:\`, with X5's Vitest alias. Linux is an
+  accepted gap until SCM1's CI runs on `ubuntu-latest`, and SCM1 now says so.
+  EO1–EO7 are done, so the ecosystem onboarding is complete.
 
 - 2026-11-18 · plan · Added DOC1 and SCM1, in two new lanes, at the owner's
   request: this repository's adoption of the ecosystem's document standard and
