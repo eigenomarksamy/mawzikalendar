@@ -7,7 +7,8 @@ summary to copy. It runs in the browser with no account, no OAuth and no
 backend, and it never fetches ra.co. It is planned for
 mawzikalendar.eigenomar.com.
 
-The event model is built (X5), and the app isn't yet. This plan holds the
+The event model (X5) and the form-to-calendar flow (X6) are built, and the
+app isn't deployed yet. This plan holds the
 first release (X5–X7), its release gate and its deploy (D1), a view of a
 public Google calendar (V1), the ideas parked for later, this repository's
 ecosystem onboarding (EO1–EO7), and its adoption of the ecosystem's
@@ -49,7 +50,7 @@ standards (DOC1, SCM1).
 | Ticket | Title | Size | Needs | Status |
 | --- | --- | --- | --- | --- |
 | [X5](#x5) | Event model and normalization | M | none | done |
-| [X6](#x6) | Form, review, Google link and `.ics` | M | X5 | todo |
+| [X6](#x6) | Form, review, Google link and `.ics` | M | X5 | done |
 | [X7](#x7) | Extract from pasted RA text | M | X6 | todo |
 | [D1](#d1) | Deploy to mawzikalendar.eigenomar.com | S | X6, the release gate | todo |
 | [V1](#v1) | Show a public Google calendar | S | none | todo |
@@ -114,6 +115,30 @@ X5–X7 build the app. The release gate below says when it can ship.
   downloads and the summary copies, each with the reviewed values. No OAuth
   and no server of the app's own are involved, and the footer's
   `eigenomar.com` link opens in a new tab.
+- **Result:** done 2026-11-19. Vite builds the page, and Playwright tests it.
+  - **The flow:** `index.html` holds the form and the review screen, and
+    `src/app.ts` moves between them. The review shows the event on its own
+    clocks and, when the viewer's zone differs, on theirs, with X5's flags
+    explained. Edit goes back to the form with its values kept. A mistake
+    stays on the form, with a message by its field.
+  - **The outputs:** the Google link is Google's `render?action=TEMPLATE`
+    page with the times in UTC and `ctz` set to the event's zone. The `.ics`
+    is one VEVENT in UTC, with CRLF lines folded at 75 octets of UTF-8, made
+    as a local blob and named `<date>-<title>.ics`. The summary is plain text,
+    copied with the Clipboard API, and shown in a box to copy by hand if that
+    fails. The Google link, the `.ics` and the summary share one description:
+    the lineup, the notes, a note when the end was assumed, and the source.
+  - **The footer:** a plain link to `https://eigenomar.com`, labelled
+    `eigenomar.com`, in the app's quiet button style, with `target="_blank"`.
+  - **Tests:** 76 unit tests pass, X5's 37 among them. 15 end-to-end tests
+    pass, five in each of Chromium, Firefox and WebKit, against the built
+    app: the flow from the form to each output with the reviewed values, the
+    mistakes, the assumed end, and the footer, with and without JavaScript.
+    They stub Google Calendar and eigenomar.com, and the app's page sends no
+    request to any host but its own. All of it passes from `C:\` and from
+    `c:\`.
+  - **Left for the release gate:** importing the `.ics` into Google Calendar
+    and Apple Calendar is checked by hand, before [D1](#d1).
 
 <a id="x7"></a>
 
@@ -175,8 +200,7 @@ deploys it once it is done.
   it. So the view embeds Google's calendar instead of parsing its events, and
   it shows Google calendars only (the owner, 2026-11-19). A calendar that
   isn't public shows Google's own message in the embed.
-- **Needs:** nothing. If it lands before [X6](#x6), it adds Vite's build and
-  the page that X6 then builds on.
+- **Needs:** nothing. It builds on [X6](#x6)'s page and Vite's build.
 - **Done when:** each of the four forms of a public Google calendar's link
   shows that calendar in the view, in the viewer's timezone, and anything else
   shows an error with no embed. Unit tests cover the parsing of each form and
@@ -376,6 +400,13 @@ Each step is small and independent, and can be done between feature work.
 4. **GitHub's description:** answered on 2026-11-14. It is `project.yaml`'s.
 
 ## Log
+
+- 2026-11-19 · X6 · Form, review, Google link and `.ics`: the page, built
+  with Vite, goes from the form to a review screen and out as a prefilled
+  Google Calendar link, an `.ics` in UTC and a summary to copy, with the
+  footer's `eigenomar.com` link in a new tab. Unit tests and Playwright's
+  end-to-end tests, in Chromium, Firefox and WebKit, pass. The release gate's
+  `.ics` imports are checked by hand before D1. X7 can start.
 
 - 2026-11-19 · plan · Added V1, in a new lane, at the owner's request: a
   view of a public Google calendar, in Google's own embed, since a public

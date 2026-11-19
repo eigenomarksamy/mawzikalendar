@@ -11,7 +11,8 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["vite/client"]
   },
-  "include": ["src", "test", "vitest.config.ts"]
+  "include": ["src", "test", "e2e", "vitest.config.ts", "playwright.config.ts"]
 }

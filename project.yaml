@@ -15,7 +15,7 @@ links:
 
 documents:
   plan: docs/plan.md
-  architecture: null               # none yet: the code is the event model, src/event.ts and src/zoned-time.ts
+  architecture: null               # none yet: CLAUDE.md's code section says which file does what
   engineering: null
   decisions: null
 
