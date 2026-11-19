@@ -188,7 +188,14 @@ The app ships only when:
 **Checked so far:** the timezone tests pass (X5). X6's two sample `.ics`
 files, a night in Berlin and a nine-hour night across the clocks going back,
 with Unicode text and folded lines, import correctly into Google Calendar
-(the owner, 2026-11-19). Apple Calendar isn't checked yet.
+(the owner, 2026-11-19). Apple Calendar isn't checked yet. The app asks for
+no permissions: in X6's end-to-end tests, Firefox and WebKit, which are
+granted none, copy the summary without a prompt.
+
+**For the first deploy,** the Google Calendar import is enough, and Apple
+Calendar's waits (the owner, 2026-11-19). The gate counts as met for
+[D1](#d1). Apple Calendar is still checked by hand once someone can, and a
+failure there is fixed as a bug in the deployed app.
 
 [D1](#d1) deploys the app once X6 and this gate are met. Once it is deployed,
 eigenomar.com adds a software entry for it, which is the site's own work.
@@ -428,6 +435,10 @@ Each step is small and independent, and can be done between feature work.
 4. **GitHub's description:** answered on 2026-11-14. It is `project.yaml`'s.
 
 ## Log
+
+- 2026-11-19 · release gate · The owner settles for the Google Calendar
+  import for the first deploy, so the gate counts as met for D1. Apple
+  Calendar's import is still to be checked, after the deploy if need be.
 
 - 2026-11-19 · X7 · Extract from pasted RA text, built: a paste box fills the
   form from an ra.co page's text and flags what is missing or in doubt, by the
