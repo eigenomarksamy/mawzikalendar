@@ -8,9 +8,10 @@ backend, and it never fetches ra.co. It is planned for
 mawzikalendar.eigenomar.com.
 
 The event model is built (X5), and the app isn't yet. This plan holds the
-first release (X5–X7), its release gate and its deploy (D1), the ideas parked
-for later, this repository's ecosystem onboarding (EO1–EO7), and its
-adoption of the ecosystem's standards (DOC1, SCM1).
+first release (X5–X7), its release gate and its deploy (D1), a view of a
+public Google calendar (V1), the ideas parked for later, this repository's
+ecosystem onboarding (EO1–EO7), and its adoption of the ecosystem's
+standards (DOC1, SCM1).
 
 ## How this plan works
 
@@ -24,6 +25,7 @@ adoption of the ecosystem's standards (DOC1, SCM1).
   | --- | --- |
   | X | The first release. It starts at X5 because its tickets keep the ids they were first planned under. |
   | D | Deploying the app |
+  | V | The calendar view: showing a public calendar in the app |
   | EO | Ecosystem onboarding |
   | DOC | The product's documents: vision, architecture, design, testing strategy, and verification and validation |
   | SCM | Source control and delivery: CI, branching, protection, releases and versioning |
@@ -50,6 +52,7 @@ adoption of the ecosystem's standards (DOC1, SCM1).
 | [X6](#x6) | Form, review, Google link and `.ics` | M | X5 | todo |
 | [X7](#x7) | Extract from pasted RA text | M | X6 | todo |
 | [D1](#d1) | Deploy to mawzikalendar.eigenomar.com | S | X6, the release gate | todo |
+| [V1](#v1) | Show a public Google calendar | S | none | todo |
 | [EO1](#eo1) | `project.yaml` | S | none | done |
 | [EO2](#eo2) | `CLAUDE.md` with the shared rules | S | none | done |
 | [EO3](#eo3) | The plan in this repository | S | none | done |
@@ -149,6 +152,37 @@ eigenomar.com adds a software entry for it, which is the site's own work.
 - **Done when:** the app answers at mawzikalendar.eigenomar.com with the
   release gate met, `project.yaml` and `CLAUDE.md` say what deploys it, and
   the ecosystem's validator passes.
+
+## Calendar view
+
+The app makes calendar entries and, until V1, shows no calendar. V1 isn't part
+of the first release: the release gate and [D1](#d1) don't wait for it, and D1
+deploys it once it is done.
+
+<a id="v1"></a>
+
+### V1 · Show a public Google calendar · S
+
+- **Do:** the user pastes a link to a public Google calendar, and the app
+  shows that calendar in Google's own embed,
+  `https://calendar.google.com/calendar/embed?src=<calendar ID>&ctz=<the viewer's timezone>`.
+  The app parses the calendar ID out of whichever form is pasted: the ID
+  itself, an embed link, the public `.ics` address
+  (`/calendar/ical/<ID>/public/basic.ics`), or a share link, whose `cid` is
+  the ID in base64. Anything else gets an error, and nothing is embedded.
+- **Why the embed:** a public calendar's `.ics` feed can't be read from the
+  browser. Google's sends no CORS header, and the app has no backend to fetch
+  it. So the view embeds Google's calendar instead of parsing its events, and
+  it shows Google calendars only (the owner, 2026-11-19). A calendar that
+  isn't public shows Google's own message in the embed.
+- **Needs:** nothing. If it lands before [X6](#x6), it adds Vite's build and
+  the page that X6 then builds on.
+- **Done when:** each of the four forms of a public Google calendar's link
+  shows that calendar in the view, in the viewer's timezone, and anything else
+  shows an error with no embed. Unit tests cover the parsing of each form and
+  of a link that isn't one. The app requests no permissions, uses no OAuth
+  and no server of its own, and loads nothing but the embed from
+  `calendar.google.com`.
 
 ## Ecosystem standards
 
@@ -342,6 +376,11 @@ Each step is small and independent, and can be done between feature work.
 4. **GitHub's description:** answered on 2026-11-14. It is `project.yaml`'s.
 
 ## Log
+
+- 2026-11-19 · plan · Added V1, in a new lane, at the owner's request: a
+  view of a public Google calendar, in Google's own embed, since a public
+  calendar's `.ics` feed sends no CORS header and the app has no backend to
+  fetch it. It needs nothing and doesn't gate the first release.
 
 - 2026-11-19 · EO6 · Linux and the lowercase drive letter: `npm run check`
   passes from `C:\` and from `c:\`, with X5's Vitest alias. Linux is an
