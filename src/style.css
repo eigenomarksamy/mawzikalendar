@@ -152,6 +152,31 @@ textarea:focus-visible,
   border-color: var(--error);
 }
 
+[data-flagged='true'] {
+  border-color: var(--note-border);
+  background: var(--note-bg);
+}
+
+.paste {
+  margin: 0 0 1.5rem;
+  padding: 0 0 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.paste h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .error {
   color: var(--error);
   margin: 0.25rem 0 0;

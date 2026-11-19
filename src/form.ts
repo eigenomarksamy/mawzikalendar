@@ -34,6 +34,19 @@ export const FIELD_NAMES: readonly FieldName[] = [
   'notes',
 ];
 
+/** What the form calls each field, for notes about it. */
+export const FIELD_LABEL: Record<FieldName, string> = {
+  title: 'Title',
+  start: 'Starts',
+  endDate: 'End date',
+  endTime: 'Ends',
+  timeZone: 'Timezone',
+  venue: 'Venue',
+  lineup: 'Lineup',
+  sourceUrl: 'Event page',
+  notes: 'Notes',
+};
+
 /** The draft the fields describe. An end date with no time is left for normalization to reject. */
 export function draftFromFields(fields: FormFields): EventDraft {
   const endDate = fields.endDate.trim();

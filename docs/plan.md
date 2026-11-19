@@ -152,6 +152,29 @@ X5–X7 build the app. The release gate below says when it can ship.
   and keeps the source URL, fields that are missing or ambiguous are flagged
   on the review screen, tests cover both, and the app sends no request to
   ra.co.
+- **Progress:** built 2026-11-19, and not done until it is checked against
+  real pastes.
+  - **What it reads:** `src/ra-text.ts` keys on an ra.co page's labels
+    (`Venue`, `Date`, `Lineup` and the rest), takes the title from the line
+    above the first label, and reads dates in either order, with or without a
+    weekday or year, and 24- or 12-hour times. A date with no year takes the
+    year its weekday matches, or the next to come. The source is the
+    `ra.co/events/<id>` link in the text, or one on `residentadvisor.net`.
+    The timezone comes from the venue's city or country, through
+    `src/time-zones.ts`. If the place has several zones or isn't known, the
+    viewer's zone is filled in and flagged.
+  - **The page:** a paste box at the top of the form. "Fill the form"
+    replaces every field the text gives, keeping the user's own notes. What
+    is missing or in doubt is listed by the box, the field is marked, and the
+    list shows again on the review screen until the field is edited.
+  - **Tests:** 27 unit tests of the extractor, and 9 end-to-end tests, three
+    in each of Chromium, Firefox and WebKit. They show that the paste fills
+    the form and that the doubts are flagged, and they refuse and record any
+    request to ra.co. None is sent. The pasted text is from fixtures laid out
+    like ra.co's pages, with made-up events.
+  - **Left:** check it against text copied from two or three real ra.co
+    event pages, add those pastes as fixtures with their names changed, and
+    fix what they show.
 
 ### Release gate
 
@@ -161,6 +184,11 @@ The app ships only when:
 - `.ics` files import cleanly into Google Calendar and Apple Calendar
   ([X6](#x6))
 - no permissions are requested
+
+**Checked so far:** the timezone tests pass (X5). X6's two sample `.ics`
+files, a night in Berlin and a nine-hour night across the clocks going back,
+with Unicode text and folded lines, import correctly into Google Calendar
+(the owner, 2026-11-19). Apple Calendar isn't checked yet.
 
 [D1](#d1) deploys the app once X6 and this gate are met. Once it is deployed,
 eigenomar.com adds a software entry for it, which is the site's own work.
@@ -400,6 +428,14 @@ Each step is small and independent, and can be done between feature work.
 4. **GitHub's description:** answered on 2026-11-14. It is `project.yaml`'s.
 
 ## Log
+
+- 2026-11-19 · X7 · Extract from pasted RA text, built: a paste box fills the
+  form from an ra.co page's text and flags what is missing or in doubt, by the
+  box and on the review screen, and the app sends nothing to ra.co. Tested
+  against fixtures laid out like ra.co's pages. It stays `todo` until it is
+  checked against real pastes.
+- 2026-11-19 · release gate · X6's sample `.ics` files import correctly into
+  Google Calendar (the owner). Apple Calendar isn't checked yet.
 
 - 2026-11-19 · X6 · Form, review, Google link and `.ics`: the page, built
   with Vite, goes from the form to a review screen and out as a prefilled

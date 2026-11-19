@@ -6,7 +6,8 @@ mawzikalendar is a browser app that turns a music event into a calendar entry.
 The event is typed into a form or pasted from an ra.co event page, checked on a
 review screen, and comes out as a prefilled Google Calendar link, an `.ics`
 file or a summary to copy. The form, the review screen and the three
-outputs work (X5, X6). Pasting ra.co text is next (X7). It is planned for
+outputs work (X5, X6), and the form can be filled from pasted ra.co text
+(X7, being checked against real pages). It is planned for
 mawzikalendar.eigenomar.com and isn't deployed.
 
 ## commands
@@ -38,6 +39,9 @@ so the tests also pass when started from a lowercase `c:\`.
   normalization (X5).
 - `src/format.ts`: the event as text, `src/google-calendar.ts`: the prefilled
   link, `src/ics.ts`: the `.ics` file (RFC 5545, times in UTC).
+- `src/ra-text.ts`: the fields from pasted ra.co text, and what it leaves in
+  doubt (X7), with `src/time-zones.ts`, the places it knows the zones of.
+  `test/ra-fixtures.ts` holds made-up pastes laid out like ra.co's pages.
 - `src/form.ts`: the form's fields and messages, `src/app.ts`: the page,
   `src/main.ts`: its entry, given the browser's clipboard, clock and blob URLs.
 - `index.html` holds the page's markup, including the footer's plain link.
