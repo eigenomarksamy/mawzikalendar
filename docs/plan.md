@@ -56,6 +56,7 @@ standards (DOC1, SCM1).
 | [X5](#x5) | Event model and normalization | m | none | done |
 | [X6](#x6) | Form, review, Google link and `.ics` | m | X5 | done |
 | [X7](#x7) | Extract from pasted RA text | s | X6 | todo |
+| [X8](#x8) | The ecosystem's tab icon | xs | none | todo |
 | [D1](#d1) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | todo |
 | [V1](#v1) | Show a public Google calendar | s | none | todo |
 | [EO1](#eo1) | `project.yaml` | s | none | done |
@@ -179,6 +180,21 @@ X5–X7 build the app. The release gate below says when it can ship.
   - **Left:** check it against text copied from two or three real ra.co
     event pages, add those pastes as fixtures with their names changed, and
     fix what they show.
+
+<a id="x8"></a>
+
+### X8 · The ecosystem's tab icon · xs
+
+- **Do:** every app under eigenomar.com shows the same tab icon:
+  eigenomar.com's lambda with its two colors swapped, a light-blue tile and a
+  near-black lambda (shared decision SD5). Replace `public/favicon.svg`, the
+  calendar, with it. `index.html` already links that file, so nothing else
+  changes. It is best done before [D1](#d1), so the app is never deployed
+  with the old icon, but D1 doesn't wait for it.
+- **Needs:** nothing.
+- **Done when:** the built app's tab shows the icon in a light and a dark
+  browser theme, `npm run check` passes, and the end-to-end tests still see
+  no request to any host but the app's own.
 
 ### Release gate
 
@@ -439,6 +455,10 @@ Each step is small and independent, and can be done between feature work.
 4. **GitHub's description:** answered on 2026-11-14. It is `project.yaml`'s.
 
 ## Log
+
+- 2026-11-20 · X8 · Added: the owner asked for every app under
+  eigenomar.com to share one tab icon, eigenomar.com's lambda with its colors
+  swapped (shared decision SD5). X8 replaces the calendar with it.
 
 - 2026-11-19 · release gate · The owner settles for the Google Calendar
   import for the first deploy, so the gate counts as met for D1. Apple
