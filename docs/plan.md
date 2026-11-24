@@ -409,10 +409,10 @@ Each step is small and independent, and can be done between feature work.
 - **Result:** done 2026-11-19.
   - **The lowercase drive letter:** `npm run check` passes, with all 37
     tests, when started from `C:\` and from `c:\`. The `c:\` run was started
-    from a Python subprocess with `cwd='c:\\dev_ws\\mawzikalendar'`, and
-    Node's working directory was `c:\dev_ws\mawzikalendar`. X5's
-    `vitest.config.ts` already holds the conventions' fix: on Windows only, it
-    points `vitest` at the working directory's copy.
+    from a Python subprocess whose working directory was the clone's root
+    with a lowercase drive letter, and Node's working directory was the same.
+    X5's `vitest.config.ts` already holds the conventions' fix: on Windows
+    only, it points `vitest` at the working directory's copy.
   - **Linux:** an accepted gap until [SCM1](#scm1). Nothing runs the tests on
     Linux yet, since there is no CI, and no deployment build until D1. SCM1's
     CI runs on `ubuntu-latest`, which closes the gap. Until then the risk is
