@@ -9,10 +9,10 @@ mawzikalendar.eigenomar.com.
 
 The event model (X5) and the form-to-calendar flow (X6) are built, and the
 app isn't deployed yet. This plan holds the
-first release (X5–X7), its release gate and its deploy (D1), a view of a
-public Google calendar (V1), the ideas parked for later, this repository's
+first release (X5–X7), its release gate and its deploy (D16), a view of a
+public Google calendar (V10), the ideas parked for later, this repository's
 ecosystem onboarding (EO1–EO7), and its adoption of the ecosystem's
-standards (DOC1, SCM1).
+standards (DOC4, SCM4).
 
 ## How this plan works
 
@@ -56,9 +56,9 @@ standards (DOC1, SCM1).
 | [X5](#x5) | Event model and normalization | m | none | done |
 | [X6](#x6) | Form, review, Google link and `.ics` | m | X5 | done |
 | [X7](#x7) | Extract from pasted RA text | s | X6 | todo |
-| [X8](#x8) | The ecosystem's tab icon | xs | none | todo |
-| [D1](#d1) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | todo |
-| [V1](#v1) | Show a public Google calendar | s | none | todo |
+| [X13](#x13) | The ecosystem's tab icon | xs | none | todo |
+| [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | todo |
+| [V10](#v10) | Show a public Google calendar | s | none | todo |
 | [EO1](#eo1) | `project.yaml` | s | none | done |
 | [EO2](#eo2) | `CLAUDE.md` with the shared rules | s | none | done |
 | [EO3](#eo3) | The plan in this repository | s | none | done |
@@ -66,8 +66,8 @@ standards (DOC1, SCM1).
 | [EO5](#eo5) | `.gitattributes` with LF line endings | s | none | done |
 | [EO6](#eo6) | Linux and the lowercase drive letter | s | X5 | done |
 | [EO7](#eo7) | An issue for every open ticket | s | the owner's approval | done |
-| [DOC1](#doc1) | The product's documents | tbd | `meta-eigenomar` ST1 | todo |
-| [SCM1](#scm1) | The ecosystem's SCM strategy | tbd | `meta-eigenomar` ST2 | todo |
+| [DOC4](#doc4) | The product's documents | tbd | `meta-eigenomar` ST1 | todo |
+| [SCM4](#scm4) | The ecosystem's SCM strategy | tbd | `meta-eigenomar` ST2 | todo |
 
 ## First release
 
@@ -143,7 +143,7 @@ X5–X7 build the app. The release gate below says when it can ship.
     request to any host but its own. All of it passes from `C:\` and from
     `c:\`.
   - **Left for the release gate:** importing the `.ics` into Google Calendar
-    and Apple Calendar is checked by hand, before [D1](#d1).
+    and Apple Calendar is checked by hand, before [D16](#d16).
 
 <a id="x7"></a>
 
@@ -181,16 +181,16 @@ X5–X7 build the app. The release gate below says when it can ship.
     event pages, add those pastes as fixtures with their names changed, and
     fix what they show.
 
-<a id="x8"></a>
+<a id="x13"></a>
 
-### X8 · The ecosystem's tab icon · xs
+### X13 · The ecosystem's tab icon · xs
 
 - **Do:** every app under eigenomar.com shows the same tab icon:
   eigenomar.com's lambda with its two colors swapped, a light-blue tile and a
   near-black lambda (shared decision SD5). Replace `public/favicon.svg`, the
   calendar, with it. `index.html` already links that file, so nothing else
-  changes. It is best done before [D1](#d1), so the app is never deployed
-  with the old icon, but D1 doesn't wait for it.
+  changes. It is best done before [D16](#d16), so the app is never deployed
+  with the old icon, but D16 doesn't wait for it.
 - **Needs:** nothing.
 - **Done when:** the built app's tab shows the icon in a light and a dark
   browser theme, `npm run check` passes, and the end-to-end tests still see
@@ -214,15 +214,15 @@ granted none, copy the summary without a prompt.
 
 **For the first deploy,** the Google Calendar import is enough, and Apple
 Calendar's waits (the owner, 2026-11-19). The gate counts as met for
-[D1](#d1). Apple Calendar is still checked by hand once someone can, and a
+[D16](#d16). Apple Calendar is still checked by hand once someone can, and a
 failure there is fixed as a bug in the deployed app.
 
-[D1](#d1) deploys the app once X6 and this gate are met. Once it is deployed,
+[D16](#d16) deploys the app once X6 and this gate are met. Once it is deployed,
 eigenomar.com adds a software entry for it, which is the site's own work.
 
-<a id="d1"></a>
+<a id="d16"></a>
 
-### D1 · Deploy to mawzikalendar.eigenomar.com · s
+### D16 · Deploy to mawzikalendar.eigenomar.com · s
 
 - **Do:** deploy the app to mawzikalendar.eigenomar.com, on hosting that fits
   the stack X5 chooses. In the same change, record how it deploys in
@@ -235,13 +235,13 @@ eigenomar.com adds a software entry for it, which is the site's own work.
 
 ## Calendar view
 
-The app makes calendar entries and, until V1, shows no calendar. V1 isn't part
-of the first release: the release gate and [D1](#d1) don't wait for it, and D1
+The app makes calendar entries and, until V10, shows no calendar. V10 isn't part
+of the first release: the release gate and [D16](#d16) don't wait for it, and D16
 deploys it once it is done.
 
-<a id="v1"></a>
+<a id="v10"></a>
 
-### V1 · Show a public Google calendar · s
+### V10 · Show a public Google calendar · s
 
 - **Do:** the user pastes a link to a public Google calendar, and the app
   shows that calendar in Google's own embed,
@@ -267,12 +267,12 @@ deploys it once it is done.
 
 The ecosystem's contract, in `meta-eigenomar`, is adding two standards that
 every repository adopts: the documents each one keeps, and how each one
-manages its source and delivers it. DOC1 and SCM1 adopt them here, each once
+manages its source and delivers it. DOC4 and SCM4 adopt them here, each once
 its standard is designed. Until then, their issues stay in the backlog.
 
-<a id="doc1"></a>
+<a id="doc4"></a>
 
-### DOC1 · The product's documents · tbd
+### DOC4 · The product's documents · tbd
 
 - **Do:** write this repository's product vision, architecture, design,
   testing strategy, and verification and validation (V&V) documents, in the
@@ -290,15 +290,15 @@ its standard is designed. Until then, their issues stay in the backlog.
   names them under the standard's keys, and the ecosystem's validator passes.
   Nothing in them is confidential, since this repository is public.
 
-<a id="scm1"></a>
+<a id="scm4"></a>
 
-### SCM1 · The ecosystem's SCM strategy · tbd
+### SCM4 · The ecosystem's SCM strategy · tbd
 
 - **Do:** adopt the ecosystem's SCM strategy through its adoption checklist:
   CI, branching, protection of `main`, versioning and releases, the health
   report and dependency updates. Today there is no CI, release or deployment,
-  and `npm run check` runs only locally. [D1](#d1) sets up the deploy: if the
-  strategy is ready first, D1 follows it, and this ticket checks the rest.
+  and `npm run check` runs only locally. [D16](#d16) sets up the deploy: if the
+  strategy is ready first, D16 follows it, and this ticket checks the rest.
   CI runs `npm run check` on `ubuntu-latest`, which closes the Linux gap
   [EO6](#eo6) accepted.
 - **Needs:** the ecosystem's SCM strategy (`meta-eigenomar` ST2).
@@ -413,8 +413,8 @@ Each step is small and independent, and can be done between feature work.
     with a lowercase drive letter, and Node's working directory was the same.
     X5's `vitest.config.ts` already holds the conventions' fix: on Windows
     only, it points `vitest` at the working directory's copy.
-  - **Linux:** an accepted gap until [SCM1](#scm1). Nothing runs the tests on
-    Linux yet, since there is no CI, and no deployment build until D1. SCM1's
+  - **Linux:** an accepted gap until [SCM4](#scm4). Nothing runs the tests on
+    Linux yet, since there is no CI, and no deployment build until D16. SCM4's
     CI runs on `ubuntu-latest`, which closes the gap. Until then the risk is
     small: the code uses no paths or OS calls, every import matches its
     file's case, the tests set their timezone in `vitest.config.ts` and not
@@ -449,13 +449,17 @@ Each step is small and independent, and can be done between feature work.
    with EO7's issue texts.
 2. **Priorities for EO7:** P1 for X5, the next ticket, and P2 for X6, X7, D1
    and EO6? Answered on 2026-11-14: yes, with EO7's issue texts.
-3. **The deploy:** answered on 2026-11-14. It is [D1](#d1), in its own lane,
+3. **The deploy:** answered on 2026-11-14. It is [D1](#d16), in its own lane,
    written now. It needs X6 and the release gate, and the hosting follows X5's
    stack.
 4. **GitHub's description:** answered on 2026-11-14. It is `project.yaml`'s.
 
 ## Log
 
+- 2026-11-26 · plan · Renamed, since the ecosystem's lanes are numbered across its
+  repositories: D16 from `D1`, DOC4 from `DOC1`, SCM4 from `SCM1`, V10 from `V1` and
+  X13 from `X8`. Their anchors, headings, references and issues changed with them,
+  and the log keeps the ids it was written with.
 - 2026-11-20 · X8 · Added: the owner asked for every app under
   eigenomar.com to share one tab icon, eigenomar.com's lambda with its colors
   swapped (shared decision SD5). X8 replaces the calendar with it.
