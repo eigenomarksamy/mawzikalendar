@@ -12,7 +12,7 @@ app isn't deployed yet. This plan holds the
 first release (X5–X7), its release gate and its deploy (D16), a view of a
 public Google calendar (V10), the ideas parked for later, this repository's
 ecosystem onboarding (EO1–EO7), and its adoption of the ecosystem's
-standards (DOC4, SCM4).
+standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 
 ## How this plan works
 
@@ -30,6 +30,7 @@ standards (DOC4, SCM4).
   | EO | Ecosystem onboarding |
   | DOC | The product's documents: vision, architecture, design, testing strategy, and verification and validation |
   | SCM | Source control and delivery: CI, branching, protection, releases and versioning |
+  | MIG | The backlog moves into GitHub issues: the cutover to GitHub as its home |
 
 - **Each ticket** says what to do, what it needs, and when it is done. Its
   "done when" is its acceptance criteria. Its size is on the ecosystem's
@@ -68,6 +69,7 @@ standards (DOC4, SCM4).
 | [EO7](#eo7) | An issue for every open ticket | s | the owner's approval | done |
 | [DOC4](#doc4) | The product's documents | tbd | `meta-eigenomar` ST1 | todo |
 | [SCM4](#scm4) | The ecosystem's SCM strategy | tbd | `meta-eigenomar` ST2 | todo |
+| [MIG4](#mig4) | The backlog moves into GitHub issues | s | `meta-eigenomar` ST3 | todo |
 
 ## First release
 
@@ -270,6 +272,10 @@ every repository adopts: the documents each one keeps, and how each one
 manages its source and delivers it. DOC4 and SCM4 adopt them here, each once
 its standard is designed. Until then, their issues stay in the backlog.
 
+A third standard, `meta-eigenomar` ST3, makes GitHub's issues the home of
+every repository's backlog, and its decisions were made on 2026-11-27. MIG4
+moves this plan's tickets there, once ST3 is built.
+
 <a id="doc4"></a>
 
 ### DOC4 · The product's documents · tbd
@@ -306,6 +312,29 @@ its standard is designed. Until then, their issues stay in the backlog.
   as an exception the strategy allows, with its reason. `project.yaml`'s
   `delivery` and `CLAUDE.md`'s delivery section say what runs, any workflow
   passes on `main`, and the ecosystem's validator passes.
+
+<a id="mig4"></a>
+
+### MIG4 · The backlog moves into GitHub issues · tbd
+
+- **Do:** move this plan's planning to GitHub all at once, following the
+  cutover steps of the ecosystem's standard `meta-eigenomar` ST3. Each open
+  ticket's content moves into its issue's body, keeping its id and its issue's
+  `<id>: <title>`. [Parked](#parked)'s ideas become draft items in the Project
+  with status `idea`, hard needs are blocked-by links, and size, status and
+  priority live only in the Project. Done, dropped and moved tickets stay here
+  as a frozen archive, and each open ticket's anchor stays, linking its issue.
+- **Needs:** GitHub as the home of the backlog (`meta-eigenomar` ST3), which
+  includes the ecosystem's own cutover first and the backlog's backup. DOC4 is
+  a planning need: the plan's direction moves into the vision before this plan
+  retires.
+- **Done when:** every open ticket's content is in its issue, and this file
+  holds only the archive and the anchors. `project.yaml`'s `documents.plan` is
+  `null` and `planning.source` names GitHub, the ecosystem's validator passes,
+  nothing confidential is in any issue, since this repository is public, and
+  the owner approved the cutover. Bringing tickets up to the ecosystem's
+  ticket standard (`meta-eigenomar` ST4) isn't part of it: each ticket follows
+  it when it is picked up.
 
 ## Parked
 
@@ -456,6 +485,10 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-27 · plan · Added MIG4, in a new lane, at the owner's request: this
+  repository's cutover to GitHub as the home of its backlog, the ecosystem's
+  standard `meta-eigenomar` ST3, whose decisions were made that day. It needs
+  ST3, so its issue waits as `blocked`.
 - 2026-11-26 · plan · Renamed, since the ecosystem's lanes are numbered across its
   repositories: D16 from `D1`, DOC4 from `DOC1`, SCM4 from `SCM1`, V10 from `V1` and
   X13 from `X8`. Their anchors, headings, references and issues changed with them,
