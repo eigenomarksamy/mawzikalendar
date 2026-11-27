@@ -57,7 +57,7 @@ standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 | [X5](#x5) | Event model and normalization | m | none | done |
 | [X6](#x6) | Form, review, Google link and `.ics` | m | X5 | done |
 | [X7](#x7) | Extract from pasted RA text | s | X6 | todo |
-| [X13](#x13) | The ecosystem's tab icon | xs | none | todo |
+| [X13](#x13) | The ecosystem's tab icon | xs | none | done |
 | [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | todo |
 | [V10](#v10) | Show a public Google calendar | s | none | todo |
 | [EO1](#eo1) | `project.yaml` | s | none | done |
@@ -197,6 +197,14 @@ X5–X7 build the app. The release gate below says when it can ship.
 - **Done when:** the built app's tab shows the icon in a light and a dark
   browser theme, `npm run check` passes, and the end-to-end tests still see
   no request to any host but the app's own.
+- **Result (2026-11-27):** `public/favicon.svg` is shared decision SD5's icon,
+  byte for byte, and nothing else changed. `npm run check` passes with 103 unit
+  tests, and `npm run test:e2e` passes all 24 tests in Chromium, Firefox and
+  WebKit, so the page still sends nothing to another host. In headless Chrome,
+  the built app served by `vite preview` links one `image/svg+xml` icon, which
+  loads with the file's bytes. The icon is a filled tile with no
+  `prefers-color-scheme` rule, so it is the same in a light and a dark theme.
+  D16's first deploy will show it.
 
 ### Release gate
 
@@ -485,6 +493,9 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-27 · X13 · Done: the tab icon is the ecosystem's, the lambda on a
+  light-blue tile (shared decision SD5), in place of the calendar, before D16's
+  first deploy. `npm run check` and `npm run test:e2e` pass.
 - 2026-11-27 · plan · Added MIG4, in a new lane, at the owner's request: this
   repository's cutover to GitHub as the home of its backlog, the ecosystem's
   standard `meta-eigenomar` ST3, whose decisions were made that day. It needs
