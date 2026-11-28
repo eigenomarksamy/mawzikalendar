@@ -34,7 +34,7 @@ test('a pasted ra.co page fills the form, and the review shows it', async ({ pag
     if (url.protocol.startsWith('http') && url.host !== appHost) foreign.push(request.url());
   });
 
-  await page.goto('/');
+  await page.goto('/app/');
   await page.locator('[name="notes"]').fill('my own note');
   await paste(page, BERLIN_NIGHT);
 
@@ -62,7 +62,7 @@ test('a pasted ra.co page fills the form, and the review shows it', async ({ pag
 });
 
 test('what the text leaves in doubt is flagged, until the field is edited', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/app/');
   await page.locator('[name="title"]').fill('typed before the paste');
   await paste(page, UNKNOWN_PLACE);
 
@@ -90,7 +90,7 @@ test('what the text leaves in doubt is flagged, until the field is edited', asyn
 });
 
 test('an empty paste asks for the text and changes nothing', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/app/');
   await page.locator('[name="title"]').fill('Kept');
   await paste(page, '   ');
   await expect(page.locator('#paste-status')).toHaveText('Paste the text of an ra.co event page first.');

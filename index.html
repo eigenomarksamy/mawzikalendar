@@ -4,116 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="description" content="turn a music event into a calendar entry: a prefilled google calendar link, an .ics file or a summary to copy." />
+    <meta name="description" content="how to subscribe to the calendar, not import it, in apple calendar, outlook and other calendar apps." />
     <title>mawzikalendar</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script type="module" src="/src/main.ts"></script>
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
+    <!-- The front page until V10's calendar view is there (D17): the guide in
+         docs/subscribe.md, rendered here at build time by vite.config.ts. No script. -->
     <header class="masthead">
-      <h1>mawzikalendar</h1>
-      <p>Turn a music event into a calendar entry. Nothing leaves your browser until you choose where it goes.</p>
+      <p class="name">mawzikalendar</p>
     </header>
 
     <main>
-      <form id="event-form" novalidate>
-        <h2>The event</h2>
-
-        <section class="paste" aria-labelledby="paste-heading">
-          <h3 id="paste-heading">From an ra.co page <span class="optional">optional</span></h3>
-          <p class="hint" id="paste-hint">Copy the text of an event page on ra.co and paste it here, and the form fills in from it. The app reads only what you paste, and never visits ra.co.</p>
-          <label class="visually-hidden" for="ra-text">The ra.co page’s text</label>
-          <textarea id="ra-text" rows="4" aria-describedby="paste-hint" placeholder="paste the event page’s text"></textarea>
-          <div class="actions">
-            <button id="fill-from-ra" class="button" type="button">Fill the form</button>
-          </div>
-          <p id="paste-status" class="status" role="status" aria-live="polite"></p>
-          <ul id="paste-notes" class="flags" hidden></ul>
-        </section>
-
-        <div class="field">
-          <label for="title">Title</label>
-          <input id="title" name="title" type="text" required autocomplete="off" aria-describedby="error-title" />
-          <p class="error" id="error-title" hidden></p>
-        </div>
-
-        <div class="field">
-          <label for="start">Starts</label>
-          <input id="start" name="start" type="datetime-local" required aria-describedby="error-start" />
-          <p class="error" id="error-start" hidden></p>
-        </div>
-
-        <fieldset class="field">
-          <legend>Ends <span class="optional">optional</span></legend>
-          <p class="hint" id="end-hint">A time before the start is the next day. Without an end, the event lasts four hours.</p>
-          <div class="pair">
-            <div>
-              <label for="endTime">Time</label>
-              <input id="endTime" name="endTime" type="time" aria-describedby="end-hint error-endTime" />
-            </div>
-            <div>
-              <label for="endDate">Date, if later than the next day</label>
-              <input id="endDate" name="endDate" type="date" />
-            </div>
-          </div>
-          <p class="error" id="error-endTime" hidden></p>
-        </fieldset>
-
-        <div class="field">
-          <label for="timeZone">The event’s timezone</label>
-          <input id="timeZone" name="timeZone" type="text" list="time-zones" required autocomplete="off" spellcheck="false" aria-describedby="error-timeZone" />
-          <datalist id="time-zones"></datalist>
-          <p class="error" id="error-timeZone" hidden></p>
-        </div>
-
-        <div class="field">
-          <label for="venue">Venue <span class="optional">optional</span></label>
-          <input id="venue" name="venue" type="text" autocomplete="off" />
-        </div>
-
-        <div class="field">
-          <label for="lineup">Lineup <span class="optional">optional, one name per line</span></label>
-          <textarea id="lineup" name="lineup" rows="4"></textarea>
-        </div>
-
-        <div class="field">
-          <label for="sourceUrl">Event page <span class="optional">optional</span></label>
-          <input id="sourceUrl" name="sourceUrl" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://ra.co/events/…" aria-describedby="error-sourceUrl" />
-          <p class="error" id="error-sourceUrl" hidden></p>
-        </div>
-
-        <div class="field">
-          <label for="notes">Notes <span class="optional">optional</span></label>
-          <textarea id="notes" name="notes" rows="3"></textarea>
-        </div>
-
-        <div class="actions">
-          <button class="button primary" type="submit">Review</button>
-        </div>
-      </form>
-
-      <section id="review" aria-labelledby="review-heading" hidden>
-        <h2 id="review-heading" tabindex="-1">Check the event</h2>
-        <dl id="review-details"></dl>
-        <ul id="review-flags" class="flags" hidden></ul>
-
-        <div class="actions">
-          <a id="google-link" class="button primary" href="#" target="_blank" rel="noopener noreferrer">Add to Google Calendar</a>
-          <a id="ics-link" class="button" href="#">Download .ics</a>
-          <button id="copy-summary" class="button" type="button">Copy summary</button>
-          <button id="edit" class="button quiet" type="button">Edit</button>
-        </div>
-        <p id="copy-status" class="status" role="status" aria-live="polite"></p>
-
-        <label for="summary-text">Summary</label>
-        <textarea id="summary-text" rows="6" readonly></textarea>
-      </section>
+      <article class="guide">
+        <!-- docs/subscribe.md -->
+      </article>
     </main>
 
     <footer class="footer">
       <a class="button quiet" href="https://eigenomar.com" target="_blank" rel="noopener">eigenomar.com</a>
     </footer>
-
-    <noscript>mawzikalendar needs JavaScript to make calendar entries.</noscript>
   </body>
 </html>

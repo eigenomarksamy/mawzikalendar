@@ -44,7 +44,13 @@ so the tests also pass when started from a lowercase `c:\`.
   `test/ra-fixtures.ts` holds made-up pastes laid out like ra.co's pages.
 - `src/form.ts`: the form's fields and messages, `src/app.ts`: the page,
   `src/main.ts`: its entry, given the browser's clipboard, clock and blob URLs.
-- `index.html` holds the page's markup, including the footer's plain link.
+- `app/index.html` holds the app's markup, including the footer's plain
+  link. The app is served at `/app/`.
+- `index.html` is the front page until V10 takes it back (D17): the guide to
+  subscribing to the calendar, written in `docs/subscribe.md`, which
+  `vite.config.ts` renders into the page at build time with `marked`, a dev
+  dependency. The page has no script. Edit the guide in the Markdown, and
+  `npm run dev` reloads it.
 
 ## plan
 

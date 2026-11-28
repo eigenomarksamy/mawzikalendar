@@ -77,8 +77,11 @@ main,
   padding-top: 2rem;
 }
 
-.masthead h1 {
+.masthead h1,
+.masthead .name {
   margin: 0;
+  font-weight: 700;
+  color: var(--text);
   font-size: 1.75rem;
   letter-spacing: -0.01em;
 }
@@ -93,7 +96,8 @@ main {
 }
 
 form,
-#review {
+#review,
+.guide {
   margin: 1.5rem 0;
   padding: 1.25rem;
   background: var(--surface);
@@ -274,6 +278,36 @@ dd {
 #summary-text {
   font-family: ui-monospace, 'Cascadia Mono', Menlo, monospace;
   font-size: 0.9em;
+}
+
+/* The front page's guide (D17), rendered from docs/subscribe.md. */
+.guide h1 {
+  margin: 0 0 1rem;
+  font-size: 1.375rem;
+}
+
+.guide h2 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.0625rem;
+}
+
+.guide > p:first-child {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+}
+
+.guide ol {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.guide li + li {
+  margin-top: 0.25rem;
+}
+
+.guide a {
+  color: var(--accent);
+  overflow-wrap: anywhere;
 }
 
 .footer {
