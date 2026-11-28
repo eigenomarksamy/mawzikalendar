@@ -4,7 +4,9 @@ import { mountCalendarView } from './calendar-view';
 
 const viewerTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-mountCalendarView(document, viewerTimeZone);
+// Up to 40rem, a phone's width, the month grid is too narrow, so the embed opens on its agenda (V11).
+const narrow = window.matchMedia('(max-width: 40rem)');
+mountCalendarView(document, viewerTimeZone, () => (narrow.matches ? 'agenda' : 'month'));
 mountApp(document, {
   viewerTimeZone,
   now: () => new Date(),

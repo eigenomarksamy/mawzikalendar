@@ -49,7 +49,8 @@ so the tests also pass when started from a lowercase `c:\`.
   `src/main.ts`: its entry, given the browser's clipboard, clock and blob URLs.
 - `src/calendar-embed.ts`: the calendar ID in a pasted link, the embed's
   address and the demo calendar's ID, and `src/calendar-view.ts`: the view on
-  the page (V10).
+  the page (V10). Up to 40rem wide, the embed opens on Google's agenda
+  rather than its month grid (V11), which `src/main.ts` decides.
 - `index.html` holds the app's markup: the calendar view, then the form, and
   the footer's plain link.
 - `subscribe/index.html` is the guide to subscribing to the calendar, at

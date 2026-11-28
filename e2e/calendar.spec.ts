@@ -87,6 +87,23 @@ test('anything else shows an error and no embed, until a calendar’s link is pa
   await expect(page.locator('#calendar-link')).not.toHaveAttribute('aria-invalid', 'true');
 });
 
+test('on a phone’s width the embed opens on its agenda, and at 40rem or wider on the month', async ({ page }) => {
+  // Desktop Chrome's viewport, 1280 px wide, gives the month grid in the tests above.
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto('/');
+  await expect(page.locator('#calendar-embed')).toHaveAttribute('src', `${embedOf(DEMO)}&mode=AGENDA`);
+  await showCalendar(page, HOLIDAYS);
+  await expect(page.locator('#calendar-embed')).toHaveAttribute('src', `${embedOf(HOLIDAYS)}&mode=AGENDA`);
+
+  // 640 px is 40rem, still a phone's width; one pixel more is the month.
+  await page.setViewportSize({ width: 640, height: 800 });
+  await page.reload();
+  await expect(page.locator('#calendar-embed')).toHaveAttribute('src', `${embedOf(DEMO)}&mode=AGENDA`);
+  await page.setViewportSize({ width: 641, height: 800 });
+  await page.reload();
+  await expect(page.locator('#calendar-embed')).toHaveAttribute('src', embedOf(DEMO));
+});
+
 test('showing a calendar leaves the event form as it was', async ({ page }) => {
   await page.goto('/');
   await page.locator('[name="title"]').fill('Half filled');

@@ -69,6 +69,15 @@ describe('the embed’s address', () => {
     );
   });
 
+  it('opens on the month grid, Google’s default, unless the agenda is asked for', () => {
+    expect(embedUrl(ID, 'UTC')).toBe(embedUrl(ID, 'UTC', 'month'));
+    expect(new URL(embedUrl(ID, 'UTC', 'month')).searchParams.has('mode')).toBe(false);
+    const agenda = new URL(embedUrl(ID, 'America/New_York', 'agenda'));
+    expect(agenda.searchParams.get('mode')).toBe('AGENDA');
+    expect(agenda.searchParams.get('src')).toBe(ID);
+    expect(agenda.searchParams.get('ctz')).toBe('America/New_York');
+  });
+
   it('keeps a # in an ID out of the fragment', () => {
     const url = new URL(embedUrl('en.usa#holiday@group.v.calendar.google.com', 'UTC'));
     expect(url.hash).toBe('');

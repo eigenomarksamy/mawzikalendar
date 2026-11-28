@@ -64,6 +64,7 @@ standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 | [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | done |
 | [D17](#d17) | The subscribe guide as the front page | m | D16 | done |
 | [V10](#v10) | Show a public Google calendar | s | none | done |
+| [V11](#v11) | The agenda on a phone | xs | none | done |
 | [EO1](#eo1) | `project.yaml` | s | none | done |
 | [EO2](#eo2) | `CLAUDE.md` with the shared rules | s | none | done |
 | [EO3](#eo3) | The plan in this repository | s | none | done |
@@ -415,13 +416,40 @@ for it, and D16's deploy shipped it once it was done.
     shows its events in the viewer's zone, at 1280 px in light and dark and
     at 360 px with no sideways scroll and no page errors. At 360 px Google's
     month grid is cramped inside its frame: its agenda mode would fit a
-    phone better, which isn't done.
+    phone better, which [V11](#v11) does.
   - **Tests:** `npm run check` passes with 110 unit tests, 7 of them new:
     each form of the link, an ID with `#`, missing padding, and 13 things
     that aren't a calendar. `npm run test:e2e` passes all 48, 21 of them new:
     the demo on open, each form, the error and the recovery, the guide's
     link, and the form kept. The embed is stubbed (`e2e/embed.ts`), and the
     page requests nothing else from another host.
+
+<a id="v11"></a>
+
+### V11 · The agenda on a phone · xs
+
+- **Do:** on a phone's width, up to 40rem, open Google's embed on its
+  agenda, a list of the coming events, instead of its month grid, which is
+  too narrow there ([V10](#v10)'s result). Wider screens keep the month.
+  The viewer can still switch between the two in the embed.
+- **Needs:** nothing.
+- **Done when:** at 360 px the embed opens on the agenda, for the demo
+  calendar and for one that is pasted, at 641 px and wider on the month,
+  unit tests cover the embed's address in both modes, and `npm run check`
+  and `npm run test:e2e` pass.
+- **Result:** done 2026-11-28, at the owner's request. `embedUrl` takes a
+  mode and adds Google's `mode=AGENDA` for the agenda, and the view asks
+  `main.ts` for it each time it shows a calendar: the agenda while
+  `(max-width: 40rem)` matches. The width is read when a calendar is shown,
+  so turning a phone doesn't switch it.
+  - **Checked:** with Google's real embed at 360 px, in light and dark, the
+    agenda opens and nothing scrolls sideways. Google's own header is still
+    tight at that width. The agenda lists events from today on, and the
+    demo calendar had none after 9 November, so on a phone it showed only
+    "showing events until Nov 27, 2027" until a coming event is added.
+  - **Tests:** `npm run check` passes with 111 unit tests, 1 of them new,
+    and `npm run test:e2e` all 51, 3 of them new: 360 px gives the agenda for
+    the demo and a pasted calendar, 640 px the agenda and 641 px the month.
 
 ## Ecosystem standards
 
@@ -643,6 +671,10 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-28 · V11 · Added and done at the owner's request: on a phone's
+  width the calendar's embed opens on Google's agenda instead of the month
+  grid. `npm run check` and `npm run test:e2e` pass. Its merge to `main`
+  deploys it.
 - 2026-11-28 · V10 · Done: the front page is the app again, with a public
   Google calendar in Google's embed above the form, the owner's when the page
   opens, or another whose link is pasted. D17's guide is at `/subscribe/`,

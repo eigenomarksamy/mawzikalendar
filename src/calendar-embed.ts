@@ -75,7 +75,14 @@ export function calendarIdFrom(pasted: string): string | null {
   return null;
 }
 
+/**
+ * How the embed opens: Google's month grid, its default, or its agenda, a list of the
+ * coming events, which fits a phone's width (V11). The viewer can switch in the embed.
+ */
+export type EmbedMode = 'month' | 'agenda';
+
 /** Google's embed of the calendar, in the viewer's own timezone. */
-export function embedUrl(calendarId: string, viewerTimeZone: string): string {
-  return `${EMBED_URL}?src=${encodeURIComponent(calendarId)}&ctz=${encodeURIComponent(viewerTimeZone)}`;
+export function embedUrl(calendarId: string, viewerTimeZone: string, mode: EmbedMode = 'month'): string {
+  const url = `${EMBED_URL}?src=${encodeURIComponent(calendarId)}&ctz=${encodeURIComponent(viewerTimeZone)}`;
+  return mode === 'agenda' ? `${url}&mode=AGENDA` : url;
 }
