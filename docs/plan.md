@@ -226,7 +226,8 @@ X5–X7 build the app. The release gate below says when it can ship.
   theme, every text on the form and the review shows in lowercase but the
   user's event, the tab's title is lowercase, and `npm run check` and
   `npm run test:e2e` pass.
-- **Result:** done 2026-11-28, at the owner's request. As on eigenomar.com
+- **Result:** done 2026-11-28, at the owner's request, `a242e68`, live the
+  same day. As on eigenomar.com
   and mortgager (its UI4), a rule does it rather than lowercased strings:
   `src/style.css` gives `body` and `button`, which the browser's own
   stylesheet resets, `text-transform: lowercase`, and the review's five
@@ -437,7 +438,8 @@ for it, and D16's deploy shipped it once it was done.
   calendar and for one that is pasted, at 641 px and wider on the month,
   unit tests cover the embed's address in both modes, and `npm run check`
   and `npm run test:e2e` pass.
-- **Result:** done 2026-11-28, at the owner's request. `embedUrl` takes a
+- **Result:** done 2026-11-28, at the owner's request, `6b81151`, live the
+  same day. `embedUrl` takes a
   mode and adds Google's `mode=AGENDA` for the agenda, and the view asks
   `main.ts` for it each time it shows a calendar: the agenda while
   `(max-width: 40rem)` matches. The width is read when a calendar is shown,
