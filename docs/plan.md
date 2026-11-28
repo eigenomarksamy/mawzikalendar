@@ -4,11 +4,11 @@ mawzikalendar turns a music event into a calendar entry. You type the event
 into a form, or paste the text of its ra.co page, check it on a review screen,
 and get a prefilled Google Calendar link, an `.ics` file to download and a
 summary to copy. It runs in the browser with no account, no OAuth and no
-backend, and it never fetches ra.co. It is planned for
+backend, and it never fetches ra.co. It is live at
 mawzikalendar.eigenomar.com.
 
 The event model (X5) and the form-to-calendar flow (X6) are built, and the
-app isn't deployed yet. This plan holds the
+app has been deployed since 2026-11-28 (D16). This plan holds the
 first release (X5–X7), its release gate and its deploy (D16), a guide to
 subscribing to a public calendar on the site's front page (D17), a view of a
 public Google calendar (V10), which takes the front page back, the ideas
@@ -60,7 +60,7 @@ standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 | [X6](#x6) | Form, review, Google link and `.ics` | m | X5 | done |
 | [X7](#x7) | Extract from pasted RA text | s | X6 | todo |
 | [X13](#x13) | The ecosystem's tab icon | xs | none | done |
-| [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | todo |
+| [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | done |
 | [D17](#d17) | The subscribe guide as the front page | m | D16 | todo |
 | [V10](#v10) | Show a public Google calendar | s | none | todo |
 | [EO1](#eo1) | `project.yaml` | s | none | done |
@@ -245,6 +245,22 @@ eigenomar.com adds a software entry for it, which is the site's own work.
 - **Done when:** the app answers at mawzikalendar.eigenomar.com with the
   release gate met, `project.yaml` and `CLAUDE.md` say what deploys it, and
   the ecosystem's validator passes.
+- **Result:** done 2026-11-28, `8a013f2`. Cloudflare Workers serves `dist/`
+  as static assets with no Worker script, as the ecosystem's other apps do.
+  `wrangler.jsonc` attaches mawzikalendar.eigenomar.com as a custom domain,
+  with the `workers.dev` address and preview URLs off. Cloudflare's build is
+  connected to the repository, running `npm run build` then
+  `npx wrangler deploy`, so every push to `main` deploys (`deploys_on:
+  merge`). `project.yaml` and `CLAUDE.md`'s delivery section say so.
+  - **Live:** the page, its script, its stylesheet and the tab icon
+    ([X13](#x13)'s, byte for byte) answer with 200, and any other path with
+    404. The assets' hashes are the local build's.
+  - **The release gate:** met for the first deploy, as the owner decided on
+    2026-11-19. Apple Calendar's import is still checked by hand.
+  - **Tests:** `npm run check` passes with 103 unit tests, and
+    `npm run test:e2e` all 24 tests in Chromium, Firefox and WebKit.
+  - **Linux:** Cloudflare's build runs the typecheck and the build on Linux.
+    The tests still wait for [SCM4](#scm4)'s CI ([EO6](#eo6)).
 
 <a id="d17"></a>
 
@@ -527,6 +543,10 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-28 · D16 · Done: the app is live at mawzikalendar.eigenomar.com,
+  a Cloudflare Worker serving `dist/` as static assets, and every push to
+  `main` deploys it. `npm run check` and `npm run test:e2e` pass. D17 can
+  start.
 - 2026-11-28 · plan · Added D17 at the owner's request: once D16 deploys,
   the site's front page is the owner's guide to subscribing to a public
   calendar, kept as Markdown in `docs/subscribe.md`, and the app moves to
