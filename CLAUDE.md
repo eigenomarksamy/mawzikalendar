@@ -7,8 +7,8 @@ The event is typed into a form or pasted from an ra.co event page, checked on a
 review screen, and comes out as a prefilled Google Calendar link, an `.ics`
 file or a summary to copy. The form, the review screen and the three
 outputs work (X5, X6), and the form can be filled from pasted ra.co text
-(X7, being checked against real pages). It is planned for
-mawzikalendar.eigenomar.com and isn't deployed.
+(X7, being checked against real pages). It is served at
+mawzikalendar.eigenomar.com, and every push to `main` deploys it (D16).
 
 ## commands
 
@@ -64,5 +64,17 @@ first release needs.
 
 ## delivery
 
-There is no CI, no release process and no deployment yet. Once one exists,
-record it here and in `project.yaml` in the same change.
+There is no CI and no release process. Record either here and in
+`project.yaml` in the same change that adds it.
+
+- **Deployment:** Cloudflare Workers serves `dist/` as static assets at
+  mawzikalendar.eigenomar.com, with no Worker script (`wrangler.jsonc`).
+  Cloudflare's build is connected to this repository, with build command
+  `npm run build` and deploy command `npx wrangler deploy`, so every push to
+  `main` goes live, and reaching `main` is deploying.
+- **From the machine:** `npm run build`, then `npx wrangler deploy`
+  (`npx.cmd` in Windows PowerShell), logged in with `npx wrangler login`.
+  Only with the owner's approval, as any deploy.
+- **Linux:** Cloudflare's build runs `npm run build`, the typecheck and the
+  build, on Linux. The tests don't run there until [SCM4](docs/plan.md#scm4)'s
+  CI does.

@@ -11,7 +11,7 @@ status: active
 tags: [icalendar, google-calendar]
 
 links:
-  deployment: null                 # not deployed yet; planned for mawzikalendar.eigenomar.com (docs/plan.md, release gate)
+  deployment: https://mawzikalendar.eigenomar.com
 
 documents:
   plan: docs/plan.md
@@ -22,7 +22,8 @@ documents:
 delivery:
   ci: none
   releases: none
-  deployment: none                 # not deployed yet
+  deployment: cloudflare           # Workers static assets from dist/, built by npm run build (wrangler.jsonc)
+  deploys_on: merge                # Cloudflare's build deploys every push to main
 
 artifacts:
   diagrams: null

@@ -1,0 +1,15 @@
+// Cloudflare Workers static assets: serves the app's build, ./dist, with no Worker script.
+// `npm run build` creates it. Cloudflare's build, connected to this repository, runs
+// `npm run build` then `npx wrangler deploy` on every push to main (CLAUDE.md, delivery).
+// Docs: https://developers.cloudflare.com/workers/static-assets/
+{
+  "name": "mawzikalendar",
+  "compatibility_date": "2026-11-01",
+  // one page, so any other path is a 404.
+  "assets": { "directory": "./dist" },
+  // attaches the subdomain to this Worker and creates its DNS record on deploy.
+  "routes": [{ "pattern": "mawzikalendar.eigenomar.com", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_metrics": false
+}
