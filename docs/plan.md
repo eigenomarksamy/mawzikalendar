@@ -60,6 +60,7 @@ standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 | [X6](#x6) | Form, review, Google link and `.ics` | m | X5 | done |
 | [X7](#x7) | Extract from pasted RA text | s | X6 | todo |
 | [X13](#x13) | The ecosystem's tab icon | xs | none | done |
+| [X14](#x14) | The page in lowercase | xs | none | done |
 | [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | done |
 | [D17](#d17) | The subscribe guide as the front page | m | D16 | todo |
 | [V10](#v10) | Show a public Google calendar | s | none | todo |
@@ -208,6 +209,40 @@ X5–X7 build the app. The release gate below says when it can ship.
   loads with the file's bytes. The icon is a filled tile with no
   `prefers-color-scheme` rule, so it is the same in a light and a dark theme.
   D16's first deploy will show it.
+
+<a id="x14"></a>
+
+### X14 · The page in lowercase · xs
+
+- **Do:** show the page's text in lowercase, as eigenomar.com and the
+  ecosystem's other apps do: the heading, labels, hints, buttons, messages
+  and the review's flags. The user's own event keeps its case, since the
+  review shows it as it goes to Google and the `.ics`: what is typed in the
+  fields, and the review's title, venue, lineup, source and notes. The
+  outputs, the Google link, the `.ics` and the summary, don't change.
+- **Needs:** nothing.
+- **Done when:** in Chromium, Firefox and WebKit, in a light and a dark
+  theme, every text on the form and the review shows in lowercase but the
+  user's event, the tab's title is lowercase, and `npm run check` and
+  `npm run test:e2e` pass.
+- **Result:** done 2026-11-28, at the owner's request. As on eigenomar.com
+  and mortgager (its UI4), a rule does it rather than lowercased strings:
+  `src/style.css` gives `body` and `button`, which the browser's own
+  stylesheet resets, `text-transform: lowercase`, and the review's five
+  values of the user's event `none`. Inputs and textareas keep their case
+  by the browser's own stylesheet, the summary included. `index.html`
+  writes the placeholder and the meta description lowercase, which CSS
+  doesn't reach, and the `<title>` already was. `CLAUDE.md`'s design
+  section holds the rule.
+  - **Checked:** against `vite preview`, in Chromium, Firefox and WebKit, in
+    light and dark, the form and the review of a mixed-case event: of 50
+    texts, only the event's title, venue, lineup and notes show capitals,
+    the inputs are `text-transform: none`, and no console errors. The review's
+    times are the app's, so their month, weekday and timezone show
+    lowercase, while the summary keeps `Europe/Berlin`.
+  - **Tests:** `npm run check` passes with 103 unit tests, and
+    `npm run test:e2e` all 24, which read the DOM's text, so the rule
+    changes none of them.
 
 ### Release gate
 
@@ -543,6 +578,10 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-28 · X14 · Added and done at the owner's request: the page is
+  lowercase, by a CSS rule as on eigenomar.com, and the user's event keeps
+  its case. `npm run check` and `npm run test:e2e` pass. Its merge to `main`
+  deploys it.
 - 2026-11-28 · D16 · Done: the app is live at mawzikalendar.eigenomar.com,
   a Cloudflare Worker serving `dist/` as static assets, and every push to
   `main` deploys it. `npm run check` and `npm run test:e2e` pass. D17 can

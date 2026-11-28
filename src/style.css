@@ -34,6 +34,9 @@
   box-sizing: border-box;
 }
 
+/* The page is lowercase, as eigenomar.com is (X14): a rule rather than lowercased
+   strings, so the messages from src/ stay as they are. The <title> and the
+   placeholder aren't styled, so index.html writes them lowercase. */
 body {
   margin: 0;
   background: var(--bg);
@@ -41,6 +44,24 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  text-transform: lowercase;
+}
+
+/* The browser's own stylesheet gives buttons text-transform: none, so they take
+   the page's case here. Inputs and textareas keep theirs: what the user types
+   keeps its case, and so does the summary, which is what gets copied. */
+button {
+  text-transform: lowercase;
+}
+
+/* The review shows the user's own event as it goes to Google and the .ics, so
+   it keeps its case. The when lines are the app's, and follow the page. */
+#review-title,
+#review-venue,
+#review-lineup,
+#review-source,
+#review-notes {
+  text-transform: none;
 }
 
 .masthead,

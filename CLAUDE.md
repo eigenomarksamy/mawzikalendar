@@ -62,6 +62,12 @@ backend. The app reads ra.co only from text the user pastes and never fetches
 it, and it requests no permissions. The plan's release gate says what the
 first release needs.
 
+The page is lowercase, as eigenomar.com is (X14): `src/style.css` lowercases
+`body` and buttons, so strings in `src/` keep their case, and what CSS doesn't
+reach, such as the `<title>` and placeholders, is written lowercase. The user's
+own event keeps its case: in the inputs, in the review's title, venue, lineup,
+source and notes, and in the outputs.
+
 ## delivery
 
 There is no CI and no release process. Record either here and in
