@@ -1,9 +1,9 @@
 import { marked } from 'marked';
 import { defineConfig, type Plugin } from 'vite';
 
-// Two pages (D17): the front page, index.html, is the guide in docs/subscribe.md, and
-// the app is app/index.html, served at /app/. The guide is Markdown rendered into the
-// page at build time, so the page has no script and the app no runtime dependency.
+// Two pages: the app, index.html, and at /subscribe/ the guide in docs/subscribe.md
+// (D17, moved there by V10). The guide is Markdown rendered into the page at build time,
+// so the page has no script and the app no runtime dependency.
 // Vitest reads vitest.config.ts, not this file.
 
 // Node's fs, typed here rather than through @types/node, which the app doesn't need
@@ -41,7 +41,7 @@ export default defineConfig({
   build: {
     rolldownOptions: {
       // Relative to the root, which every command here starts in.
-      input: { guide: 'index.html', app: 'app/index.html' },
+      input: { app: 'index.html', guide: 'subscribe/index.html' },
     },
   },
 });

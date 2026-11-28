@@ -7,7 +7,9 @@ The event is typed into a form or pasted from an ra.co event page, checked on a
 review screen, and comes out as a prefilled Google Calendar link, an `.ics`
 file or a summary to copy. The form, the review screen and the three
 outputs work (X5, X6), and the form can be filled from pasted ra.co text
-(X7, being checked against real pages). It is served at
+(X7, being checked against real pages). Above the form, a calendar view
+shows a public Google calendar in Google's own embed: the owner's when the page
+opens, or another whose link is pasted (V10). It is served at
 mawzikalendar.eigenomar.com, and every push to `main` deploys it (D16).
 
 ## commands
@@ -25,8 +27,9 @@ or later. Each command runs from the repository's root, on Windows and Linux.
 - `npm run test:e2e` builds the app and runs `e2e/` with Playwright in
   Chromium, Firefox and WebKit, as a viewer in New York. It needs the browsers
   once per machine: `npx playwright install chromium firefox webkit`, and on
-  Linux `--with-deps`. Google Calendar and eigenomar.com are stubbed, so the
-  tests send nothing to either.
+  Linux `--with-deps`. Google Calendar, its embed and eigenomar.com are
+  stubbed, so the tests send nothing to either. The embed is the one request
+  to another host the page may make (`e2e/embed.ts`).
 - `npm run check` typechecks with `tsc`, runs the unit tests and builds. Run
   it before pushing, and run `npm run test:e2e` too after changing the page.
 
@@ -44,13 +47,17 @@ so the tests also pass when started from a lowercase `c:\`.
   `test/ra-fixtures.ts` holds made-up pastes laid out like ra.co's pages.
 - `src/form.ts`: the form's fields and messages, `src/app.ts`: the page,
   `src/main.ts`: its entry, given the browser's clipboard, clock and blob URLs.
-- `app/index.html` holds the app's markup, including the footer's plain
-  link. The app is served at `/app/`.
-- `index.html` is the front page until V10 takes it back (D17): the guide to
-  subscribing to the calendar, written in `docs/subscribe.md`, which
-  `vite.config.ts` renders into the page at build time with `marked`, a dev
-  dependency. The page has no script. Edit the guide in the Markdown, and
+- `src/calendar-embed.ts`: the calendar ID in a pasted link, the embed's
+  address and the demo calendar's ID, and `src/calendar-view.ts`: the view on
+  the page (V10).
+- `index.html` holds the app's markup: the calendar view, then the form, and
+  the footer's plain link.
+- `subscribe/index.html` is the guide to subscribing to the calendar, at
+  `/subscribe/` (D17, moved there by V10), written in `docs/subscribe.md`,
+  which `vite.config.ts` renders into the page at build time with `marked`, a
+  dev dependency. The page has no script. Edit the guide in the Markdown, and
   `npm run dev` reloads it.
+- `public/_redirects` sends D17's `/app/` to `/`.
 
 ## plan
 
@@ -65,7 +72,8 @@ plan or anywhere else here.
 
 Every change keeps to the tickets' constraints: no account, no OAuth and no
 backend. The app reads ra.co only from text the user pastes and never fetches
-it, and it requests no permissions. The plan's release gate says what the
+it, and it requests no permissions. The page loads nothing from another host
+but Google's calendar embed (V10), which is given no permissions. The plan's release gate says what the
 first release needs.
 
 The page is lowercase, as eigenomar.com is (X14): `src/style.css` lowercases

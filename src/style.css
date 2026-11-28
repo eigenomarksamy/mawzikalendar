@@ -95,8 +95,9 @@ main {
   flex: 1;
 }
 
-form,
+#event-form,
 #review,
+.calendar,
 .guide {
   margin: 1.5rem 0;
   padding: 1.25rem;
@@ -280,7 +281,46 @@ dd {
   font-size: 0.9em;
 }
 
-/* The front page's guide (D17), rendered from docs/subscribe.md. */
+.masthead .name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The calendar view (V10): Google's embed, then the box for another calendar. */
+.calendar-frame iframe {
+  display: block;
+  width: 100%;
+  height: 30rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  background: #ffffff;
+}
+
+.calendar-frame + .hint {
+  margin: 0.75rem 0 0;
+}
+
+.calendar .hint a {
+  color: var(--accent);
+}
+
+.calendar-form {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.inline {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inline input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The guide (D17), rendered from docs/subscribe.md, at /subscribe/ since V10. */
 .guide h1 {
   margin: 0 0 1rem;
   font-size: 1.375rem;

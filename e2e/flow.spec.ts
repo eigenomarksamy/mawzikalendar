@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { isEmbed } from './embed';
 
 // X6's flow in a real browser: the form, the review screen, and the Google link, the
 // `.ics` and the summary, each with the reviewed values. Google and eigenomar.com are
@@ -25,13 +26,13 @@ const SUMMARY = [
   'https://ra.co/events/1234567',
 ].join('\n');
 
-/** Every http(s) request the page sends to a host other than the app's own. */
+/** Every http(s) request the page sends to a host other than the app's own, but the calendar's embed. */
 function foreignRequests(page: Page, appUrl: string): string[] {
   const appHost = new URL(appUrl).host;
   const sent: string[] = [];
   page.on('request', (request) => {
     const url = new URL(request.url());
-    if ((url.protocol === 'http:' || url.protocol === 'https:') && url.host !== appHost) {
+    if ((url.protocol === 'http:' || url.protocol === 'https:') && url.host !== appHost && !isEmbed(request.url())) {
       sent.push(request.url());
     }
   });
@@ -60,7 +61,7 @@ test('an event goes from the form to the review screen and out as a link, an .ic
   baseURL,
 }) => {
   const foreign = foreignRequests(page, baseURL ?? '');
-  await page.goto('/app/');
+  await page.goto('/');
   await expect(page.locator('[name="timeZone"]')).toHaveValue('America/New_York');
 
   await fillForm(page, THE_NIGHT);
@@ -129,7 +130,7 @@ test('an event goes from the form to the review screen and out as a link, an .ic
 });
 
 test('a draft with mistakes stays on the form, with a message by each field', async ({ page }) => {
-  await page.goto('/app/');
+  await page.goto('/');
   await fillForm(page, { title: '  ', start: '2026-07-18T23:00', timeZone: 'Mars/Olympus', sourceUrl: 'ra.co events' });
   await page.getByRole('button', { name: 'Review' }).click();
 
@@ -143,7 +144,7 @@ test('a draft with mistakes stays on the form, with a message by each field', as
 });
 
 test('an event with no end is flagged on review, and editing keeps what was entered', async ({ page }) => {
-  await page.goto('/app/');
+  await page.goto('/');
   await fillForm(page, { title: 'Open end', start: '2026-07-18T23:00', timeZone: 'Europe/Berlin' });
   await page.getByRole('button', { name: 'Review' }).click();
 
@@ -159,7 +160,7 @@ test('an event with no end is flagged on review, and editing keeps what was ente
 });
 
 test('the footer’s eigenomar.com link opens in a new tab, and the form keeps its values', async ({ page }) => {
-  await page.goto('/app/');
+  await page.goto('/');
   await fillForm(page, { title: 'Half filled' });
 
   const footer = page.getByRole('contentinfo').getByRole('link', { name: 'eigenomar.com' });
@@ -169,14 +170,14 @@ test('the footer’s eigenomar.com link opens in a new tab, and the form keeps i
   await footer.click();
   expect((await popup).url()).toBe('https://eigenomar.com/');
 
-  await expect(page).toHaveURL('/app/');
+  await expect(page).toHaveURL('/');
   await expect(page.locator('[name="title"]')).toHaveValue('Half filled');
 });
 
 test('the footer link works without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto('/app/');
+  await page.goto('/');
   const footer = page.getByRole('contentinfo').getByRole('link', { name: 'eigenomar.com' });
   await expect(footer).toHaveAttribute('href', 'https://eigenomar.com');
   await expect(footer).toHaveAttribute('target', '_blank');

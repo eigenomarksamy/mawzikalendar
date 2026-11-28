@@ -5,8 +5,8 @@
 {
   "name": "mawzikalendar",
   "compatibility_date": "2026-11-01",
-  // two pages: the guide at / and the app at /app/ (D17). /app redirects to /app/, and
-  // any other path is a 404.
+  // two pages: the app at / and the guide at /subscribe/ (V10). public/_redirects sends
+  // D17's /app/ to /, and any other path is a 404.
   "assets": { "directory": "./dist" },
   // attaches the subdomain to this Worker and creates its DNS record on deploy.
   "routes": [{ "pattern": "mawzikalendar.eigenomar.com", "custom_domain": true }],

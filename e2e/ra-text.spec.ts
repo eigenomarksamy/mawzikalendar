@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { BERLIN_NIGHT, UNKNOWN_PLACE } from '../test/ra-fixtures';
+import { isEmbed, stubEmbed } from './embed';
 
 // X7 in a real browser: text pasted from an ra.co page fills the form, what it leaves in
 // doubt is flagged by the paste box and on the review screen, and nothing is sent to
@@ -9,6 +10,7 @@ let toRa: string[] = [];
 
 test.beforeEach(async ({ context }) => {
   toRa = [];
+  await stubEmbed(context);
   for (const pattern of ['**://ra.co/**', '**://*.ra.co/**', '**://*.residentadvisor.net/**']) {
     await context.route(pattern, (route) => {
       toRa.push(route.request().url());
@@ -31,10 +33,10 @@ test('a pasted ra.co page fills the form, and the review shows it', async ({ pag
   const foreign: string[] = [];
   page.on('request', (request) => {
     const url = new URL(request.url());
-    if (url.protocol.startsWith('http') && url.host !== appHost) foreign.push(request.url());
+    if (url.protocol.startsWith('http') && url.host !== appHost && !isEmbed(request.url())) foreign.push(request.url());
   });
 
-  await page.goto('/app/');
+  await page.goto('/');
   await page.locator('[name="notes"]').fill('my own note');
   await paste(page, BERLIN_NIGHT);
 
@@ -62,7 +64,7 @@ test('a pasted ra.co page fills the form, and the review shows it', async ({ pag
 });
 
 test('what the text leaves in doubt is flagged, until the field is edited', async ({ page }) => {
-  await page.goto('/app/');
+  await page.goto('/');
   await page.locator('[name="title"]').fill('typed before the paste');
   await paste(page, UNKNOWN_PLACE);
 
@@ -90,7 +92,7 @@ test('what the text leaves in doubt is flagged, until the field is edited', asyn
 });
 
 test('an empty paste asks for the text and changes nothing', async ({ page }) => {
-  await page.goto('/app/');
+  await page.goto('/');
   await page.locator('[name="title"]').fill('Kept');
   await paste(page, '   ');
   await expect(page.locator('#paste-status')).toHaveText('Paste the text of an ra.co event page first.');
