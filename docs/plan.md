@@ -9,8 +9,10 @@ mawzikalendar.eigenomar.com.
 
 The event model (X5) and the form-to-calendar flow (X6) are built, and the
 app isn't deployed yet. This plan holds the
-first release (X5–X7), its release gate and its deploy (D16), a view of a
-public Google calendar (V10), the ideas parked for later, this repository's
+first release (X5–X7), its release gate and its deploy (D16), a guide to
+subscribing to a public calendar on the site's front page (D17), a view of a
+public Google calendar (V10), which takes the front page back, the ideas
+parked for later, this repository's
 ecosystem onboarding (EO1–EO7), and its adoption of the ecosystem's
 standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 
@@ -59,6 +61,7 @@ standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 | [X7](#x7) | Extract from pasted RA text | s | X6 | todo |
 | [X13](#x13) | The ecosystem's tab icon | xs | none | done |
 | [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | todo |
+| [D17](#d17) | The subscribe guide as the front page | m | D16 | todo |
 | [V10](#v10) | Show a public Google calendar | s | none | todo |
 | [EO1](#eo1) | `project.yaml` | s | none | done |
 | [EO2](#eo2) | `CLAUDE.md` with the shared rules | s | none | done |
@@ -243,6 +246,34 @@ eigenomar.com adds a software entry for it, which is the site's own work.
   release gate met, `project.yaml` and `CLAUDE.md` say what deploys it, and
   the ecosystem's validator passes.
 
+<a id="d17"></a>
+
+### D17 · The subscribe guide as the front page · m
+
+- **Do:** until [V10](#v10) is done, mawzikalendar.eigenomar.com opens on
+  the owner's guide, "how to subscribe (not import) in your calendar", and
+  the app moves to its own path, `/app/`. The guide lives in the repository
+  as Markdown, `docs/subscribe.md`, written from the owner's one-page PDF
+  ([on Google Drive](https://drive.google.com/file/d/1eiFOfGK_HAPIEzcnTXoOZngOQ6nUusoS/view)),
+  with its text kept as the owner wrote it. Each calendar app (Apple
+  Calendar, Outlook, and the others) gets a heading with its steps as a
+  list, and the public calendar's iCal address becomes a link. The build
+  renders the Markdown to HTML, so the page needs no JavaScript and the app
+  gains no runtime dependency. The page keeps the app's tab icon
+  ([X13](#x13)) and its footer link to eigenomar.com. In the same change,
+  `CLAUDE.md`'s code section says where the guide is and how it is built.
+- **Temporary:** the guide holds the front page only until there is a demo
+  of the app, [V10](#v10)'s view of the calendar the guide subscribes to.
+  V10 gives the front page back to the app. The Markdown stays in the
+  repository either way.
+- **Needs:** [D16](#d16).
+- **Done when:** mawzikalendar.eigenomar.com shows the guide rendered from
+  `docs/subscribe.md`, its iCal link opens the calendar's address, and the
+  app answers at `/app/` with [X6](#x6)'s flow working. `npm run check` and
+  `npm run test:e2e` pass, the end-to-end tests cover the guide and the app
+  at its new path, and they still see no request to any host but the app's
+  own. The ecosystem's validator passes.
+
 ## Calendar view
 
 The app makes calendar entries and, until V10, shows no calendar. V10 isn't part
@@ -265,6 +296,9 @@ deploys it once it is done.
   it. So the view embeds Google's calendar instead of parsing its events, and
   it shows Google calendars only (the owner, 2026-11-19). A calendar that
   isn't public shows Google's own message in the embed.
+- **The front page:** V10 is the demo that ends [D17](#d17)'s guide on the
+  site's front page. Once D17 is done, V10 gives the front page back to the
+  app, and its change decides whether the page links the guide.
 - **Needs:** nothing. It builds on [X6](#x6)'s page and Vite's build.
 - **Done when:** each of the four forms of a public Google calendar's link
   shows that calendar in the view, in the viewer's timezone, and anything else
@@ -493,6 +527,11 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-28 · plan · Added D17 at the owner's request: once D16 deploys,
+  the site's front page is the owner's guide to subscribing to a public
+  calendar, kept as Markdown in `docs/subscribe.md`, and the app moves to
+  `/app/`. It lasts until V10's calendar view is there as a demo, and V10
+  now says it gives the front page back. D17 is next after D16.
 - 2026-11-27 · X13 · Done: the tab icon is the ecosystem's, the lambda on a
   light-blue tile (shared decision SD5), in place of the calendar, before D16's
   first deploy. `npm run check` and `npm run test:e2e` pass.
