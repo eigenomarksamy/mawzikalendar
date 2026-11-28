@@ -24,12 +24,18 @@ test('the front page is the guide, with no script and nothing from another host'
   await expect(page.getByRole('heading', { level: 2 })).toHaveText([
     '📅 apple calendar (mac/iphone/ipad)',
     '📅 outlook (web & desktop)',
+    '📅 google calendar (web)',
     '📅 other calendar apps (android, thunderbird, etc.)',
     "here's said link",
   ]);
   await expect(page.locator('.guide ol').first().locator('li')).toHaveCount(4);
   await expect(page.getByRole('link', { name: ICAL })).toHaveAttribute('href', ICAL);
   await expect(page.getByRole('link', { name: 'outlook.com', exact: true })).toHaveAttribute('href', 'https://outlook.com/');
+  await expect(page.getByRole('link', { name: 'google calendar', exact: true })).toHaveAttribute(
+    'href',
+    'https://calendar.google.com/',
+  );
+  await expect(page.locator('.guide ol')).toHaveCount(3);
 
   const footer = page.getByRole('contentinfo').getByRole('link', { name: 'eigenomar.com' });
   await expect(footer).toHaveAttribute('href', 'https://eigenomar.com');

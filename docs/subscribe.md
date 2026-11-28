@@ -16,6 +16,15 @@ please read before clicking the link
 3. paste the google calendar ical url.
 4. click import, and it will sync automatically.
 
+## 📅 google calendar (web)
+
+1. on a computer, open [google calendar](https://calendar.google.com/).
+2. on the left, next to other calendars, click add (+) > from url.
+3. paste the google calendar ical url.
+4. click add calendar. it shows under other calendars, and syncs to your phone too.
+
+google calendar can take up to 12 hours to show changes to a subscribed calendar.
+
 ## 📅 other calendar apps (android, thunderbird, etc.)
 
 many apps (like thunderbird, zoho, and android apps like business calendar) allow subscribing to an ical url instead of importing it.

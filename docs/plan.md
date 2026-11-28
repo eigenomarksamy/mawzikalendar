@@ -62,7 +62,7 @@ standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 | [X13](#x13) | The ecosystem's tab icon | xs | none | done |
 | [X14](#x14) | The page in lowercase | xs | none | done |
 | [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | done |
-| [D17](#d17) | The subscribe guide as the front page | m | D16 | todo |
+| [D17](#d17) | The subscribe guide as the front page | m | D16 | done |
 | [V10](#v10) | Show a public Google calendar | s | none | todo |
 | [EO1](#eo1) | `project.yaml` | s | none | done |
 | [EO2](#eo2) | `CLAUDE.md` with the shared rules | s | none | done |
@@ -324,6 +324,37 @@ eigenomar.com adds a software entry for it, which is the site's own work.
   `npm run test:e2e` pass, the end-to-end tests cover the guide and the app
   at its new path, and they still see no request to any host but the app's
   own. The ecosystem's validator passes.
+- **Result:** done 2026-11-28, `1308428`, live the same day.
+  - **The guide:** `docs/subscribe.md` holds the owner's PDF as written: the
+    line asking to read before clicking, the title, a heading per calendar
+    app with its steps as a numbered list, and the iCal address as a link.
+    outlook.com is a link too, as in the PDF. At the owner's request, a
+    section for Google Calendar followed the same day: its "from url"
+    steps, which subscribe rather than import, as the guide's title asks,
+    and Google's note that it can take up to 12 hours to show changes.
+  - **The build:** a plugin in `vite.config.ts` renders the Markdown into
+    `index.html` with `marked` 18.3.0, a pinned dev dependency, so the app
+    still has no runtime dependency, and `npm run dev` reloads the page when
+    the Markdown changes. `vite.config.ts` reads the file through
+    `process.getBuiltinModule`, as `vitest.config.ts` avoids `@types/node`,
+    and `tsc` now checks it. The app moved, unchanged, to `app/index.html`.
+    The guide shares the app's stylesheet, so it is lowercase too
+    ([X14](#x14)), with the tab icon and the footer's eigenomar.com link.
+  - **Live:** `/` answers with the guide, `/app` redirects to `/app/`, which
+    answers with the app, and any other path is a 404. The built guide has
+    no script, but Cloudflare adds its bot detection's script,
+    `/cdn-cgi/challenge-platform`, to every page under eigenomar.com: a
+    setting of the domain, not of this repository. The guide works without
+    it.
+  - **Tests:** `npm run check` passes with 103 unit tests, and
+    `npm run test:e2e` all 30, 6 of them new: the guide with JavaScript off,
+    its headings, steps and links, the footer and the icon, no script, no
+    form and no request to another host, and the app at `/app/`. The app's
+    tests now open `/app/`. `wrangler dev` served the build with the same
+    answers as the live site, and at 1280 px in light and dark and at 360 px
+    nothing scrolls sideways.
+  - **Not linked:** nothing on the guide links the app, so `/app/` is
+    reached by its address until V10.
 
 ## Calendar view
 
@@ -578,6 +609,10 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-28 · D17 · Done: the front page is the owner's guide to
+  subscribing to the calendar, rendered from `docs/subscribe.md` at build
+  time, now with a Google Calendar section, and the app is at `/app/`.
+  `npm run check` and `npm run test:e2e` pass. V10 takes the front page back.
 - 2026-11-28 · X14 · Added and done at the owner's request: the page is
   lowercase, by a CSS rule as on eigenomar.com, and the user's event keeps
   its case. `npm run check` and `npm run test:e2e` pass. Its merge to `main`
