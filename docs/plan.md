@@ -10,8 +10,8 @@ mawzikalendar.eigenomar.com.
 The event model (X5) and the form-to-calendar flow (X6) are built, and the
 app has been deployed since 2026-11-28 (D16). This plan holds the
 first release (X5–X7), its release gate and its deploy (D16), a guide to
-subscribing to a public calendar on the site's front page (D17), a view of a
-public Google calendar (V10), which takes the front page back, the ideas
+subscribing to a public calendar, the front page until V10 (D17), a view of a
+public Google calendar above the form, which took the front page back (V10), the ideas
 parked for later, this repository's
 ecosystem onboarding (EO1–EO7), and its adoption of the ecosystem's
 standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
@@ -63,7 +63,7 @@ standards (DOC4, SCM4), with its backlog's move into GitHub issues (MIG4).
 | [X14](#x14) | The page in lowercase | xs | none | done |
 | [D16](#d16) | Deploy to mawzikalendar.eigenomar.com | s | X6, the release gate | done |
 | [D17](#d17) | The subscribe guide as the front page | m | D16 | done |
-| [V10](#v10) | Show a public Google calendar | s | none | todo |
+| [V10](#v10) | Show a public Google calendar | s | none | done |
 | [EO1](#eo1) | `project.yaml` | s | none | done |
 | [EO2](#eo2) | `CLAUDE.md` with the shared rules | s | none | done |
 | [EO3](#eo3) | The plan in this repository | s | none | done |
@@ -358,9 +358,9 @@ eigenomar.com adds a software entry for it, which is the site's own work.
 
 ## Calendar view
 
-The app makes calendar entries and, until V10, shows no calendar. V10 isn't part
-of the first release: the release gate and [D16](#d16) don't wait for it, and D16
-deploys it once it is done.
+The app makes calendar entries and, since V10, shows a public calendar too. V10
+wasn't part of the first release: the release gate and [D16](#d16) didn't wait
+for it, and D16's deploy shipped it once it was done.
 
 <a id="v10"></a>
 
@@ -388,6 +388,40 @@ deploys it once it is done.
   of a link that isn't one. The app requests no permissions, uses no OAuth
   and no server of its own, and loads nothing but the embed from
   `calendar.google.com`.
+- **Result:** done 2026-11-28, `be5946b`, live the same day. The owner chose
+  the layout: the calendar first, then the form, with the owner's calendar,
+  the one D17's guide subscribes to, loaded as the page opens. The guide
+  moved to `/subscribe/`, which the view links.
+  - **The view:** `src/calendar-embed.ts` reads the ID from the ID itself,
+    an embed link's `src`, the `.ics` address's path, or a share link's `cid`
+    in base64, URL-safe or not and with or without its padding, or the ID
+    itself as some share links carry it. Only links on `calendar.google.com`
+    count, and the result must look like a calendar's address, so
+    `en.usa#holiday@group.v.calendar.google.com` passes and a lookalike host
+    doesn't. `src/calendar-view.ts` puts Google's embed, in the viewer's
+    timezone, in an iframe with no `allow`, so it is given no permissions.
+    Anything else shows an error by the box and removes the embed, and
+    showing a calendar leaves the event form as it was.
+  - **The page:** `index.html` is the app again: "the calendar", its embed,
+    a link to the guide, and a box to show another public Google calendar,
+    then the event form. The masthead now says the calendar is Google's
+    own, loaded from Google, and that the events entered don't leave the
+    browser until the user chooses where they go. `subscribe/index.html` is
+    D17's guide, its name linking back to `/`, and `public/_redirects`
+    sends D17's `/app` and `/app/` to `/`.
+  - **Live:** `/` answers with the app and the view, `/app` and `/app/`
+    with a 301 to `/`, `/subscribe/` with the guide, and `/_redirects` and
+    any other path with 404. With Google's real embed, the owner's calendar
+    shows its events in the viewer's zone, at 1280 px in light and dark and
+    at 360 px with no sideways scroll and no page errors. At 360 px Google's
+    month grid is cramped inside its frame: its agenda mode would fit a
+    phone better, which isn't done.
+  - **Tests:** `npm run check` passes with 110 unit tests, 7 of them new:
+    each form of the link, an ID with `#`, missing padding, and 13 things
+    that aren't a calendar. `npm run test:e2e` passes all 48, 21 of them new:
+    the demo on open, each form, the error and the recovery, the guide's
+    link, and the form kept. The embed is stubbed (`e2e/embed.ts`), and the
+    page requests nothing else from another host.
 
 ## Ecosystem standards
 
@@ -609,6 +643,11 @@ Each step is small and independent, and can be done between feature work.
 
 ## Log
 
+- 2026-11-28 · V10 · Done: the front page is the app again, with a public
+  Google calendar in Google's embed above the form, the owner's when the page
+  opens, or another whose link is pasted. D17's guide is at `/subscribe/`,
+  linked from the view, and `/app/` redirects to `/`. `npm run check` and
+  `npm run test:e2e` pass.
 - 2026-11-28 · D17 · Done: the front page is the owner's guide to
   subscribing to the calendar, rendered from `docs/subscribe.md` at build
   time, now with a Google Calendar section, and the app is at `/app/`.
